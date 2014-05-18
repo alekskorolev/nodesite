@@ -1,0 +1,51 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<body>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+
+		<div class="actAdmin-container">
+
+			<div class="links">
+				<a href='/admin/'>К панели администратора</a>
+			</div>
+
+		<% if (sAct) { %>
+			<div class='saved'>
+				<h4>Мероприятия создано!</h4>
+					<a href='#'>Просмотр мероприятия</a>
+			</div>
+		<% } %>
+
+			<h4>Создание мероприятия</h4>
+			<form action="/admin/add_act" method="GET" id='other-info'></form>
+				<ul class="actAdmin-list">
+					<li><div class='input-name'>Название</div> <input form='other-info' type="text" name="name"></li>
+					<li><div class='input-name'>Описание</div> <textarea form='other-info' name="description"></textarea></li>
+					<li><div class='input-name'>Место</div> <input form='other-info' type="text" name="place"></li>
+					<li><div class='input-name'>Цена</div> <input form='other-info' type="text" name="price"></li>
+					<li><div class='input-name'>Начало</div> <input class='inputDateBegin' form='other-info' type="text" name="start"> <input type="text" form='other-info' placeholder="Время начала в формате 19:00" name="timestart"></li>
+					<li><div class='input-name'>Конец</div> <input  class='inputDateFinish' form='other-info' type="text" name="finish"> <input type="text" form='other-info' placeholder="Время конца в формате 19:00" name="timefinish"></li>
+					<form action="/admin/add_act_face" method='POST' enctype='multipart/form-data' id="add_act_face">
+					<li><div class='input-name'>Обложка для мероприятия: </div><input form="add_act_face" class="actFace" type='file' name='actFace' accept='image/jpg, image/jpeg, image/png'></li>
+
+					<li><div class='input-name'><b>Добавление файлов: </b></div><span class="uploadprogress"></span></li>
+					<form id="actAdminUpdate" action="/admin/admin_update" method="POST"  enctype='multipart/form-data'>
+						<li><div class='input-name'>Фотографии</div> <input form="actAdminUpdate" class='photoCont' type='file' name='photos' accept='image/jpg, image/jpeg, image/png'><span class='text-added' style='margin-left: 10px; margin-bottom: 10px;'></span><span class='photoAddCount'></span></li>
+						<li><div class='input-name'>Видео</div> <input form="actAdminUpdate" class='videoCont' type='file' name='videos' accept='video/mp4'><span class='text-added-v' style='margin-left: 10px; margin-bottom: 10px;'></span><span class='videoAddCount'></span></li>
+					</form>
+
+					<li><div class='input-name'>Видео URL</div> <input form='other-info' type='text' name='url' placeholder='Через запятую' style='width: 780px'></li>
+					<input form='other-info' type="button" value="Предварительный просмотр" disabled><br><br>
+					<input form='other-info' type="submit" value="Создать мероприятие">
+				</ul>
+
+		</div>
+
+	<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<div class='profile-event'>
+	<div class='content'>
+		<div class='name'>
+			<%= event.name %>
+		</div>
+		<div class='image'>
+			<a href='/event/<%= event._id %>'>
+				<% if (event.photos.length>0) { %>
+					<img src='<%= event.photos[0] %>'>
+				<% } else { %>
+					<img src='/img/event-unactive.png'>
+				<% } %>
+			</a>
+		</div>
+	</div>
+	<%
+		var date = new Date(event.created);
+
+		var day = date.getDate()<10? '0' + date.getDate() : date.getDate();
+		var month = date.getMonth()<10? '0' + date.getMonth() : date.getMonth();
+		var year = date.getFullYear();
+
+		beautyDate = day + '.' + month + '.' + year;
+	%>
+	<div class='header'><%= beautyDate %></div>
+</div>

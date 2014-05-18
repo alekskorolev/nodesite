@@ -1,0 +1,86 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/photo-fone.png" class="photo-name" >
+			</div>
+		</div>
+		<div id="blackout"></div>
+
+			<div class="photo-cont-wrap">
+					<%
+					console.log(count, pagecount);
+					console.log(count>pagecount);
+					if (count>pagecount) {
+					%>
+					Страницы: 
+					<%
+						for (var i=0; i<Math.ceil(count/pagecount); i=i+1) {
+					%>
+							<a href='#' class='pageAlb' id='<%= i+1 %>'><%= i+1 %></a>
+					<%
+						}
+					} %>
+				<input type="hidden" class="inputAlbumId" value="<%= valb._id %>">
+				<div class="photo-wrap">
+				<%
+				console.log(valb.user, " ", user.uid);
+				if (valb.user==user.uid) {
+				%>
+					<form action="/valbum/deleteValb" method="POST">
+						<input type="hidden" name="id_valb" value="<%= valb._id %>">
+						<input class="delete-album" type="submit" value="Удалить альбом">
+					</form>
+					<div class="button-album showAddVideo">Загрузить видео</div>
+				<%
+				}
+				%>
+					<a href="/valbum?user=<%= valb.user %>"><div class="button-album">К списку альбомов</div></a>
+					<div class="my-album-place">
+	
+
+					<%
+					video.forEach( function (v) {
+					%>
+ 						<div class="case-3 op-media">
+							<div class="alboom videoClickView" for="<%= v._id %>"><img src="<%= v.path %>" class="albumPhoto"></div>
+							<div сlass="album-item"><%= v.name %></div>
+						</div>
+					<%
+					});
+					%>
+
+					</div>
+				</div>
+			</div>
+
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+	</div>
+
+<!-- Всплывающие окна -->
+<div class="addVideo_window">
+	<div class="enter-window">
+		<div class="close-wrap">
+			<a class="btn-close addVideo-close"></a>
+		</div>
+		<div class="head_name">
+			<span class="autorisation">Добавление видео</span>
+		</div>
+				<form action="/valbum/VideoControl" method="POST" id="uploadProcess" enctype='multipart/form-data'>
+					<input type="file" name="video_upload" class="inputVideoUpload"><input type="hidden" name="valb._id" value="<%= valb._id %>" class="valbId"><BR>
+				</form>
+
+		<div class="error_information">
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+
+

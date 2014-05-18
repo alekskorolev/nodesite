@@ -1,0 +1,79 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<body>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+		<div class="adminSummary">
+			<span class="adminSumBlock">
+				<span class="adminBlockHead">Пользователи:</span>
+				<ul class="adminStatic">
+<!-- 					<li><h3>Статистика:</h3></li>
+					<li>Пользоватлей зарегистрировано: <span class="adminValue"><a href="/admin/users/"><%= statistic.userCount %></a></span></li>
+					<li>Пользователей онлайн: <span class="adminValue"><a href="/admin/users/online/">100</a></span></li>
+					<li>Зарегистрировано сегодня: <span class="adminValue"><a href="/admin/users/new/">100</a></span></li> -->
+					<li><h3>Инвайты:</h3></li>
+					<li>Письмо выслано: <span class="adminValue"><a href="/admin/invites/"><%= statistic.invCount %></a></span></li>
+					<li>Письмо не выслано: <span class="adminValue"><a href="/admin/newinvites/">
+						<%= statistic.invNewCount %></a></span></li> 
+					<li>Отказано: <span class="adminValue"><a href="/admin/neginvites/">
+						<%= statistic.invCountNeg %></a></span></li> 
+					<li><a href='/admin/sendInvite'>Выслать приглашение</a></li>
+ 					<!-- <li><h3>Учетные записи: </h3></li> -->
+<!--					<li>Всего обращений: <span class="adminValue"><a href="/admin/feedbacks/"><%= statistic.fbCount %></a></span></li> -->
+
+<!-- 					<li><h3>Словари:</h3></li>
+					<li><a href="/admin/dicts?type=Prof">Профессии</a></li>
+					<li><a href="/admin/dicts?type=Interest">Интересы</a></li>
+					<li><a href="/admin/dicts?type=Showtype">Тематика передач</a></li>
+					<li><a href="/admin/dicts?type=Showtheme">Типы передач</a></li> -->
+<!-- 					<li>Новых запросов инвайта: <span class="adminValue"><a href="/admin/invites/">100</a></span></li>
+					<li>Всего необработанных запросов: <span class="adminValue"><a href="/admin/invites/">100</a></span></li> -->
+				</ul>
+			</span>
+
+			<span class="adminSumBlock">
+				<span class="adminBlockHead">Словари:</span>
+				<ul class="adminStatic">
+					<li><a href="/admin/dicts?type=Prof">Профессии</a></li>
+					<li><a href="/admin/dicts?type=Interest">Интересы</a></li>
+					<li><a href="/admin/dicts?type=Showtype">Тематика передач</a></li>
+					<li><a href="/admin/dicts?type=Showtheme">Типы передач</a></li>
+				</ul>
+			</span>
+			<span class="adminSumBlock">
+				<span class="adminBlockHead">Обратная связь:</span>
+				<ul class="adminStatic">					
+					<li>Всего обращений: <span class="adminValue"><a href="/admin/feedbacks/"><%= statistic.fbCount %></a></span></li>
+				</ul>
+			</span>
+
+			<span class="adminSumBlock">
+			<span class="adminBlockHead">Мероприятия</span>
+				<ul class="adminStatic">
+					<li><a href='/admin/act_list'>Все мероприятия</a></li>
+					<li><a href="/admin/add_act">Создать мероприятие</a></li>
+					<li><a href='/admin/act_list?list=now'>Текущие мероприятия</a></li>
+					<li><a href='/admin/act_list?list=future'>Список будущих мероприятий</a></li>
+					<li><a href='/admin/act_list?list=back'>Список прошедших мероприятий</a></li>
+				</ul>
+			</span>
+			<!--
+			<span class="adminSumBlock"></span>
+			<span class="adminSumBlock"></span>
+			<span class="adminSumBlock"></span>
+			<span class="adminSumBlock"></span>
+			<span class="adminSumBlock"></span>
+			<span class="adminSumBlock"></span> -->
+		</div>
+
+
+
+
+
+	<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

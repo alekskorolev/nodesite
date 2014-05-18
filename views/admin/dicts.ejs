@@ -1,0 +1,27 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<body>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+		
+<div class="adminSummary">
+
+	Список записей в словаре: <br id="addNewLabel">
+	<% var o = results; 
+	console.log(results);
+	var ok;
+	for (var c in o) {
+		%>
+		<li><input type="text" value="<%= o[c].title %>" id="<%= o[c]._id.toString() %>" readonly><input type="submit" id="<%= o[c]._id.toString() %>" class="dictdelete" value="X"></li>
+	<% ok = o[c].dict; } %>
+	<li>Добавить:<input type="text" id="<%= ok %>"><input type="submit" id="<%= type %>" class="newdict"></li><BR><BR>
+	<a href="/admin/">Назад к панели администратора</a>
+</div>
+
+	<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

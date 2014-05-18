@@ -1,0 +1,40 @@
+<script language='javascript'>
+	$(function () {
+		$('.change a').click( function () {
+			$('#postCreate').submit();
+		})
+	})
+</script>
+<div class='event'>
+	<div class='header'>
+		<%
+			var date = new Date(event.created);
+
+			var day = date.getDate()<10? '0' + date.getDate() : date.getDate();
+			var month = date.getMonth()<10? '0' + date.getMonth() : date.getMonth();
+			var year = date.getFullYear();
+
+			beautyDate = day + '.' + month + '.' + year;
+		%>
+		<%= beautyDate %>
+	</div>
+	<div class='content'>
+		<form action='/event/<%= event._id %>/edit' method='POST' id='postCreate'>
+			<input type='hidden' name='id' value='<%= event._id %>'>
+			<div class='name'>
+				<input type='text' name='name' value='<%= event.name %>'>
+			</div>
+			<div class='description'>
+				<textarea name='description'><%= event.description %></textarea>
+			</div>
+		</form>
+	<div class='control'>
+		<div class='change'>
+			<a href='#'><img src='/img/pencil.png'>Сохранить изменения</a>
+		</div>
+		<div class='delete'>
+			<a href='/event/delete/<%= event._id %>'><img src='/img/corzina.png'>Удалить событие</a>
+		</div>
+	</div>
+	</div>
+</div>

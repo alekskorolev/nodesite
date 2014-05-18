@@ -1,0 +1,28 @@
+<div class="push-container">
+			<div class="close-push">
+				<a class="button-close"></a>
+			</div>
+			<div class="push-menu_title">
+				<% if (!user.authorized) { %>
+					<div class="title-menu_active"><a href="/invite" class="title-menu">Запросить инвайт</a></div>
+				<% } %>
+				<!--<img src="img/item-button.png" class="item-button">-->
+				<a href="/search" class="title-menu">Поиск</a>
+				<a href="/about" class="title-menu">О системе</a>
+				<a href="/lesson" class="title-menu">Тренинги</a>
+				<a href='/activity' class="title-menu">Мероприятия</a>
+				<a href="http://195.128.126.179/Main/frmNewTicket.aspx" target='_blank' class="title-menu">Обращение в техподдержку</a>
+			<!--	<a class="title-menu">Контакты</a>
+				<a class="title-menu">Обратная связь</a> -->
+			</div>
+			<div class="push-menu_social">
+				<a class="to-vk" target="_blank" href="http://vk.com/mediaexperts"></a>
+			<!--	<a class="to-twit" href="#"></a> -->
+				<a class="to-face" target="_blank" href="https://www.facebook.com/groups/MediaEx/"></a>
+			</div>
+			<% if (user.authorized && (user.role == "expert" || user.role == "editor")) { %>
+				<div class="delete-account">
+					<a href="#" class="delete_me">Вы можете удалить страницу</a>
+				</div>
+			<% } %>
+		</div>

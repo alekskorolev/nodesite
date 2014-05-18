@@ -1,0 +1,103 @@
+
+	<div class="blackout"></div>
+	<!-- Всплывающее окно авторизации -->
+	<div class="popup-login">
+		<div class="enter-window">
+			<div class="close-wrap">
+				<a class="btn-close"></a>
+			</div>
+			<div class="head_name">
+				<span class="autorisation">Авторизация</span>
+			</div>
+			<div class="error_line error_loginpas">
+				<span class="error_message">Неправильный логин или пароль</span>
+			</div>
+			<div class="error_line required_login">
+				<span class="error_message">Для восстановления пароля укажите логин</span>
+			</div>
+			<div class="error_line error_login">
+				<span class="error_message">Такого пользователя не существует</span>
+			</div>
+			<div class="enter-form"><form id="enter-form" action="post">
+				<input type="text"  maxlenght="50" placeholder="Логин" class="login" name="login" id="login">
+				<input type="password" maxlenght="50" placeholder="Пароль" class="pass" name="password" id="password">
+				<a href="#" class="pass_help">Я забыл (а) пароль!</a>
+				<button type="submit" class="btn_log">Войти
+			</button></form></div>
+			<div class="line"></div>
+			<div class="social-item">
+				<span class="for_social">Войти через социальную сеть</span>
+				<img src="/img/vk.png" class="to_social">
+				<img src="/img/twitter.png" class="to_social">
+				<img src="/img/facebook.png" class="to_social">
+			</div>
+		</div>
+	</div>
+
+	<!-- Всплывающее окно редактирования фото -->
+	<div class="popup-photo-editor">
+		<div class="enter-window">
+			<div class="close-wrap">
+				<a class="btn-close cancelPhotoEdit"></a>
+			</div>
+			<div class="head_name">
+				<span class="autorisation">Изменение аватара</span><br>
+			</div>
+			<div id="photo-editor"><img src="" id="editor" /></div>
+			<div class="enter-form"><form id="enter-form" method="post" action="/rest/savephoto">
+				<button class="btn_save_photo">Сохранить
+			</button></form></div>
+		</div>
+	</div>
+	<!-- Всплывающее окно редактирования обложки мероприятия -->
+	<div class="popup-actface-editor">
+		<div class="enter-window">
+			<div class="close-wrap">
+				<a class="btn-close"></a>
+			</div>
+			<div class="head_name">
+				<span class="autorisation">Изменение обложки мероприятия</span><br>
+			</div>
+			<div id="photo-editor"><img src="" id="editor-actface" /></div>
+			<div class="enter-form"><form id="enter-form" method="post" action="/activity/cropFace">
+				<button class="btn_save_photo">Сохранить
+			</button></form></div>
+		</div>
+	</div>
+
+	<!-- Всплывающее окно уведомления об изменении емайла или пароля -->
+	<div class="popup-empass-changed">
+		<div class="enter-window">
+			<div class="close-wrap">
+				<a class="btn-close"></a>
+			</div>
+			<div class="empass-changed-text">
+				Вы запросили изменение логина или пароля.<br/><br/>
+				На указанный почтовый ящик Вам было выслано письмо, содержащее ссылку с уникальным кодом.<br/><br/>
+				Для подтверждения изменений Вам необходимо перейти по этой ссылке. Если Вы ошиблись и не желаете менять логин/пароль, Вы можете проигнорировать это письмо, и ваши логин и пароль остануться преждними.
+			</div>
+		</div>
+	</div>
+	<!-- Всплывающее окно уведомления об изменении емайла или пароля -->
+	<div class="noCropData">
+		<div class="enter-window">
+			<div class="close-wrap">
+				<a class="btn-close"></a>
+			</div>
+			<div class="empass-changed-text">
+				Необходимо выделить фрагмент изображения, который будет использоваться в качестве вашей аватарки!
+			</div>
+		</div>
+	</div>
+
+	<!-- Всплывающее окно уведомления об изменении емайла или пароля -->
+	<div class="popup-error-empass">
+		<div class="enter-window">
+			<div class="close-wrap">
+				<a class="btn-close"></a>
+			</div>
+			<div class="empass-changed-text">
+				Возникла ошибка при сохранении емайла или пароля. Пожалуйста, проверьте правильность введенных данных и попробуйте снова.
+			</div>
+		</div>
+	</div>

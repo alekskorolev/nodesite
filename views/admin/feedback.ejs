@@ -1,0 +1,31 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<body>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+		
+<div class="adminSummary">
+	<% feedbacks.forEach(function(feedback){ %>
+	
+	<span class="adminSumBlock" for="<%= feedback._id %>">
+		<span class="adminBlockHead"><%= feedback.name %></span>
+		<a class="deleteFeedb" href="/admin/deleteFeedb?id=<%= feedback._id %>" >Удалить</a>
+		<ul class="adminStatic">
+			<li>Email: <%= feedback.email %></li>
+			<li>Текст сообщения: <%= feedback.msg %></li>
+			<li><a href="/admin/feedback?fbId=<%= feedback._id %>" >Просмотр сообщения и отправка ответа</a></li>
+		</ul>
+	</span>
+	
+	
+	<% }) %>
+</div>
+
+
+	<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

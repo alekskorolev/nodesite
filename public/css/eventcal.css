@@ -1,0 +1,196 @@
+div.eventcal {
+	position: relative;
+	font-size: 12px;
+	width: 300px;
+	height: 255px;
+	position: absolute;
+	cursor: default;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.eventcalContainer {
+	background: #949292;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 175px;
+	height: 140px;
+	padding: 7px;
+}
+.eventcalBorderT {
+	position: absolute;
+	left: 10px;
+	top: 0;
+	right: 10px;
+	height: 10px;
+	background: url("img/images/datepicker_t.png");
+}
+.eventcalBorderB {
+	position: absolute;
+	left: 10px;
+	bottom: 0;
+	right: 10px;
+	height: 10px;
+	background: url("img/images/datepicker_b.png");
+}
+.eventcalBorderL {
+	position: absolute;
+	left: 0;
+	bottom: 10px;
+	top: 10px;
+	width: 10px;
+	background: url("img/images/datepicker_l.png");
+}
+.eventcalBorderR {
+	position: absolute;
+	right: 0;
+	bottom: 10px;
+	top: 10px;
+	width: 10px;
+	background: url("img/images/datepicker_r.png");
+}
+.eventcalBorderTL {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10px;
+	height: 10px;
+	background: url("../img/images/datepicker_tl.png");
+}
+.eventcalBorderTR {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10px;
+	height: 10px;
+	background: url("../img/images/datepicker_tr.png");
+}
+.eventcalBorderBL {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 10px;
+	height: 10px;
+	background: url("../img/images/datepicker_bl.png");
+}
+.eventcalBorderBR {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 10px;
+	height: 10px;
+	background: url("../img/images/datepicker_br.png");
+}
+.eventcalHidden {
+	display: none;
+}
+div.eventcal table {
+	border-collapse:collapse;
+}
+div.eventcal a {
+	color: #eee;
+	text-decoration: none;
+	cursor: default;
+	outline: none;
+}
+div.eventcal table td {
+	text-align: right;
+	padding: 0;
+	margin: 0;
+}
+div.eventcal th {
+	text-align: center;
+	color: #fff;
+	font-weight: normal;
+}
+div.eventcal tbody th {
+	text-align: left;
+}
+div.eventcal tbody a {
+	display: block;
+}
+.eventcalDays a {
+	width: 20px;
+	line-height: 16px;
+	height: 16px;
+	padding-right: 2px;
+}
+.eventcalYears a,
+.eventcalMonths a{
+	width: 44px;
+	line-height: 36px;
+	height: 36px;
+	text-align: center;
+}
+td.eventcalNotInMonth a {
+	color: #666;
+}
+tbody.eventcalDays td.eventcalSelected{
+	background: #136A9F;
+}
+tbody.eventcalDays td.eventcalNotInMonth.eventcalSelected {
+	background: #17384d;
+}
+tbody.eventcalYears td.eventcalSelected,
+tbody.eventcalMonths td.eventcalSelected{
+	background: #17384d;
+}
+div.eventcal a:hover,
+div.eventcal a:hover {
+	color: #88c5eb;
+}
+div.eventcal td.eventcalNotInMonth a:hover {
+	color: #fff;
+}
+div.eventcal tbody th {
+	text-align: left;
+}
+.eventcalSpace div {
+	width: 20px;
+}
+.eventcalGoNext a,
+.eventcalGoPrev a,
+.eventcalMonth a {
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+}
+.eventcalGoNext a {
+	float: right;
+	width: 20px;
+}
+.eventcalGoPrev a {
+	float: left;
+	width: 20px;
+}
+table.eventcalViewDays tbody.eventcalMonths,
+table.eventcalViewDays tbody.eventcalYears {
+	display: none;
+}
+table.eventcalViewMonths tbody.eventcalDays,
+table.eventcalViewMonths tbody.eventcalYears,
+table.eventcalViewMonths tr.eventcalDoW {
+	display: none;
+}
+table.eventcalViewYears tbody.eventcalDays,
+table.eventcalViewYears tbody.eventcalMonths,
+table.eventcalViewYears tr.eventcalDoW {
+	display: none;
+}
+td.eventcalDisabled a,
+td.eventcalDisabled.eventcalNotInMonth a{
+	color: #333;
+}
+td.eventcalDisabled a:hover {
+	color: #333;
+}
+td.eventcalSpecial a {
+	background: #700;
+}
+td.eventcalSpecial.eventcalSelected a {
+	background: #a00;
+}
+a{
+	font-size: 15px;
+}

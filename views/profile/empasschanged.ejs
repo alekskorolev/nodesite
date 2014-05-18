@@ -1,0 +1,35 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+
+		<div class="notice-wrap">
+			<div class="notice">
+				<span class="notice-mesage">
+					<% if (changed) { %>
+					Вы подтвердили изменение 
+					<%= ( changed.mail ? "логина" : "" ) %> 
+					<%= ( (changed.mail && changed.pass) ? "и" : "" ) %> 
+					<%= ( changed.pass ? "пароля" : "" ) %>.
+					<%= ( changed.mail ? "Ваш новый логин: "+profile.email+"." : "" ) %> 
+					<br/><br/>
+					Если вы забудете свой пароль, вы можете воспользоваться формой восстановления пароля.
+					<% }  else {
+						if (text) { %>
+							<%= text %>
+						<%	} %>
+					<% } %>
+				</span>
+			</div>
+		</div>
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+		</div>
+
+</body>
+</html>
+
+
+		

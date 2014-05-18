@@ -1,0 +1,109 @@
+.ME-calendar {
+	width: 260px;
+	height: 306px;
+	margin: 10px;
+}
+
+.monthName {
+	width: 230px;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 10px solid #1f1f1f;
+	background-color: #e07450;
+	padding-left: 30px;
+	color: #fff;
+	font-size: 20px;
+	font-family: Arial;
+	text-align: left;
+}
+.placeDay {
+	position: relative;
+	width: 256px;
+	height: 252px;
+	border: 0px;
+	border-left: 2px solid silver;
+	border-bottom: 2px solid silver;
+	border-right: 2px solid silver;
+	background-color: #fff;
+}
+.ME-calendar-small {
+	width: 230px;
+	height: 306px;
+	margin: 10px;
+}
+
+.monthName-small {
+	text-align: left;
+	width: 197px;
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid #999;
+	border-bottom: 10px solid #e07450;
+	background-color: #fff;
+	padding-left: 30px;
+	color: #000;
+	font-size: 19px;
+	font-family: Arial;
+	position: relative;
+}
+
+.placeDay-small {
+	position: relative;
+	width: 227px;
+	height: 205px;
+	border: 0px;
+	border-left: 1px solid #999;
+	border-bottom: 1px solid #999;
+	border-right: 1px solid #999;
+	background: #fff;
+}
+
+.nameWeek {
+	position: absolute; 
+	top: 0px;
+	left: 0px;
+	width: 50px;
+	padding-left: 20px;
+}
+.days {
+	position: absolute;
+	top: 0px;
+	left: 50px;
+}
+
+.li {
+	width: 31px;
+	height: 34px;
+	margin: 1px;
+	text-align: center;
+	line-height: 30px;
+	font-size: 23px;
+	font-family: Arial;
+}
+
+.li.act {
+	background: #e07450;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+}
+.li-small {
+	width: 25px;
+	height: 25px;
+	margin: 2px;
+	text-align: center;
+	line-height: 25px;
+	font-size: 18px;
+	font-family: arial;
+}
+
+.li-small.act {
+	background: #e07450;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.ul {
+	float: left;
+}

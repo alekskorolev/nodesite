@@ -1,0 +1,200 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+ 		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/activity-fon.png" class="photo-name" >
+			</div>
+		</div>
+
+ 		<div class="activity-container">
+ 				<a href='/activity/'>
+ 					<div class='button-for-create-comment' style='margin-top: 20px; margin-bottom: 20px;'>
+ 						К мероприятиям
+ 					</div>
+ 				</a>
+
+	 			<div class='view-activity-left'>
+	 				<img src='<%= act.photoface %>' class='activity-avatar-in-view'>
+	 				<%
+	 					if (act.members.length>0) {
+	 						if (act.members.indexOf(user.uid)+1) {
+	 							css_class = 'let-outclude-me';
+	 							text = 'Не участвовать';
+	 						} else {
+	 							css_class = 'let-include-me';
+	 							text = 'Принять участие';
+	 						}
+	 					} else {
+	 						css_class = 'let-include-me';
+	 						text = 'Принять участие';
+	 					}
+	 				%>
+	 				<div class='button-for-include-in-this-activity <%= css_class %>'>
+	 					<%= text %>
+	 				</div>
+
+	 				<div class='activity-info-view info-place'>
+	 					<%= act.place %>
+	 				</div>
+
+	 				<div class='activity-info-view info-price'>
+	 					<%= act.price %>
+	 				</div>
+
+	 				<div class='activity-info-view info-time'>
+	 					<%
+	 						var date = new Date(act.start);
+	 						start = ' ' + (date.getDate()<10?('0'+date.getDate() ):(date.getDate()) ) + '.' +
+	 								(date.getMonth()<10?('0'+date.getMonth()):(date.getMonth() ) ) + '.' + 
+	 								date.getFullYear();
+	 					%>
+	 					<%= start %> <%= act.timestart %>
+	 				</div>
+
+	 				<div class='member-counts'>
+	 					<img src='/img/activity-members.png' class='members-icon'>Участники: <%= act.members.length %>
+	 				</div>
+
+	 				<div class='members-first-nine-avatar'>
+	 					<label id='label-for-insert-your-avatar'></label>
+		 					<%
+		 					var array = act.members;
+		 					for (var i=0; i<array.length; i++) {
+		 						a = Math.floor(Math.random()*array.length);
+		 						b = Math.floor(Math.random()*array.length);
+
+		 						buff = array[a];
+		 						array[a] = array[b];
+		 						array[b] = buff;
+		 					}
+		 					%>
+		 				<% if (array.length>0) { %>
+			 				<% for (var i = 0; i<(array.length>9?9 : array.length); i++ ) { %>
+			 					<a href='/profileview?id=<%=array[i]%>'>
+				 					<div class='one-member-in-first print-before-load-page' uid='<%= array[i] %>'>
+				 						<div>
+				 						</div>
+				 					</div>
+			 					</a>
+			 				<% } %>
+			 			<% } %>
+	 				</div>
+	 			</div>
+
+	 			<div class='view-activity-right'>
+	 				<div class='activity-name-in-view'><%= act.name %></div>
+
+	 				<div class='activity-description-in-view'>
+	 					<%= act.description %>
+	 				</div> 
+
+	 				<div class='place-for-activity-view'>
+	 					<div class='place-for-text-about background-photo'>
+	 						Фотографии мероприятия
+	 					</div>
+	 					<div class='place-for-first-view'>
+	 						<% 
+	 						if (act.photos) {
+	 							for (var i = 0; i< (act.photos.length>4?4:act.photos.length); i++ ) { %>
+	 							<a href='/album/view?activity=<%= act._id %>'><img src='<%=act.photos[i] %>' class='in-view-activity'></a>
+	 						<% }
+	 						} else { %>
+	 							<div class='no-photo-or-video'>Фотографий нет</div>
+	 						<% } %>
+	 					</div>
+	 				</div>
+	 				<div class='place-for-activity-view'>
+	 					<div class='place-for-text-about background-video'>
+	 						Видео мероприятия
+	 					</div>
+	 					<div class='place-for-first-view'>
+	 						<% 
+	 						if (act.videos) {
+	 							for (var i = 0; i< (act.videos.length>3?3:act.videos.length); i++ ) { %>
+	 								<a href='/valbum?activity=<%=act._id%>&mainvid=<%=act.videos[i]%>'>
+									<div class='video-in-look-act'>
+										<img src="<%= act.videos[i] %>" class="prev-video-in-look-act">
+										<div class='bottom-panel-in-look-act'>
+											&nbsp;&nbsp;
+										</div>
+						  			</div>
+						  			</a>
+	 						<% }
+	 						} else { %>
+	 							<div class='no-photo-or-video'>Видео нет</div>
+	 						<% } %>
+	 					</div>
+	 				</div>
+	 			</div>
+
+ 			<div class='bottom-panel-border'>
+ 				<div class='head-about-comments'>
+ 					Отзывы
+ 				</div>
+ 			</div>
+
+ 			<div class='place-for-activity-comments'>
+				<label class='for-add-comment'></label>
+ 			</div>
+
+ 			<div class='button-for-create-comment show-create-comment-form'>
+ 				Оставить отзыв
+ 			</div>
+ 			<div class='button-for-create-comment send-comment' id='<%= act._id %>' author='<%= user.uid %>'>
+ 				Опубликовать
+ 			</div>
+
+ 			<div class='form-for-create-comment'>
+ 				<form action='/comments/create' method='POST' id='form-create-comment'>
+ 					<textarea name='comment_body' class='input-comment-body' placeholder='Введите текст отзыва'></textarea>
+ 			</div>
+
+	 		<div class='look-all-member'>
+	 			<div class='close-look-all-member'>
+	 			</div>
+
+	 			<div class='count-all-member'>
+	 				Участники: <%= act.members.length %>
+	 			</div>
+
+	 			<div class='slide-left-look-all-member'>
+	 			</div>
+	 			<div class='slide-right-look-all-member'>
+	 			</div>
+
+	 			<div class='place-for-all-member'>
+
+	 			<% for (var line = 0; line < 3; line++ ) { %>
+	 				<div class='line-for-members-in-look'>
+	 					<% for (var i = 0; i < act.members.length; i++ ) { 
+	 						if (i%3==line) { %>
+	 							<a href='/profileview?id=<%= act.members[i] %>'>
+	 							<div class='one-member-in-first look-window' id='<%= act.members[i] %>'>
+	 								<div class='family-and-name'></div>
+	 							</div>
+	 							</a>
+	 					<%}}%>
+	 				</div>
+	 			<% } %>
+	 			</div>
+	 		</div>
+
+
+ 		</div>
+	</div>
+
+<% include ../common/footer %>
+<div id="for-admin-info">
+	<label id="for-admin">
+	</label>
+</div>
+
+		<script type="text/javascript" async="" src="/js/activity.js"></script>
+		<script type="text/javascript" async="" src='/js/activity_view.js'></script>
+</body>
+</html>

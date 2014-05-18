@@ -1,0 +1,33 @@
+<style>
+.opacity-background {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+.window-with-photo {
+	width: 900px;
+	height: 600px;
+	background: #191919;
+	position: absolute;
+	left: 50%;
+	margin-left: -450px;
+	top: 50%;
+	margin-top: -300px;
+}
+</style>
+<script language='javascript' type='text/javascript'>
+	$(function () {
+		// Скрываем прокрутку страницы
+		$('html, body').css('overflow', 'hidden');
+	});
+</script>
+
+<!-- Делаем страницу позади белой, чтобы нихера нельзя было сделать -->
+<div class='opacity-background'></div>
+
+<!-- Непосредственно окно просмотра фотографии -->
+<div class='window-with-photo'>
+</div>

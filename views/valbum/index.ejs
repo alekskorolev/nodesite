@@ -1,0 +1,185 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/video-fone.png" class="photo-name" >
+			</div>
+		</div>
+ 		<div class="content-place">
+ 			<div class="head-button">
+ 				<% if (user_id!=='activity'&&user_id!=='event') { %>
+		 			<% if (user.uid==user_id) { %>
+			 			<a href='/profile'>
+				 			<div class="go-to-profile">
+				 				Профиль
+				 			</div>
+				 		</a>
+					 	<div class="add-new-video">
+			 				Добавить видео
+			 			</div>
+				 	<% } else { %>
+			 			<a href='/profileview?id=<%= user_id %>'>
+				 			<div class="go-to-profile">
+				 				Профиль
+				 			</div>
+				 		</a>
+				 	<% } %>
+				 <% } %>
+				 <% if (user_id=='activity') { %>
+				 	<a href='/activity/id/<%=activity%>'>
+				 		<div class='go-to-profile' style='width: 200px;'>
+				 			К мероприятию
+				 		</div>
+				 	</a>
+				 <% } %>
+				 <% if (user_id=='event') { %>
+				 	<a href='/event/<%=event%>'>
+				 		<div class='go-to-profile' style='width: 200px;'>
+				 			К событию
+				 		</div>
+				 	</a>
+				 <% } %>
+	 		</div>
+ 			<div class="video-place-content">
+
+ 				<% if (videos.length>0) { 
+ 					var infoMainvid;
+ 						if (mainvid) {
+ 							videos.forEach(function(vid) {
+ 								if ((vid._id==mainvid)||(vid.videoprev==mainvid)) {
+ 									infoMainvid = vid;
+ 								}
+ 							});
+ 							if (!infoMainvid) {
+ 								infoMainvid = videos[0];
+ 							}
+ 						} else {
+ 							infoMainvid = videos[0];
+ 						}
+ 					%>
+
+		 				<div class="main-video" id="<%= infoMainvid._id %>">
+		 					<div class="place-for-videoplayer">
+		 						<% if ((user.uid == user_id)||user.role=='admin') { %> 
+			 						<div class="video-corner-panel">
+					  					<div class="corner-panel-delete" for="<%= infoMainvid._id %>">
+					  					</div>
+					  					<div class="corner-panel-edit">
+					  					</div>
+					  				</div>
+					  			<% } %>
+			  						<% if (infoMainvid.from==="disk") { %>
+										<video controls='' name='media' width='710' height='415' class='video-href'><source src='<%= infoMainvid.viewpath %>'></video>
+			  							<% } %>
+			  						<% if (infoMainvid.from==="internet") { %>
+										<iframe src="<%= infoMainvid.path %>?wmode=transparent" width='710' height='415' frameborder="0" allowfullscreen wmode="opaque"></iframe>
+			  							<% } %>
+		 					</div>
+		 					<div class="place-for-text-about-video">
+								<span class='video-desc-span'><%= infoMainvid.description %></span>
+								<textarea class='video-description-input'><%= infoMainvid.description %></textarea>
+		 					</div>
+		 					<div class="place-for-control-panel">
+				 				<span class='video-name-span'><%= infoMainvid.name %></span>
+				 				<input type='text' class='video-name-input' value='<%= infoMainvid.name %>'>
+				 				<span class='corner-panel-save'>Сохранить</span>
+				 				<span class='saved-nesaved'></span>
+				 				<div class="givme-fullscreen"></div>
+		 					</div>
+		 				</div>
+
+		 				<div class="video-list">
+		 				<%  videos.forEach( function (vid) { 
+		 						if (vid._id!==infoMainvid._id) { %>
+			 					<div class="video-info-place"  id="<%= vid._id %>">
+				  					<div class="place-for-preview-video">
+				  						<% if ((user.uid == user._id)||user.role=='admin') { %>
+					  						<div class="video-corner-panel">
+					  							<div class="corner-panel-delete" for="<%= vid._id %>">
+					  							</div>
+					  							<div class="corner-panel-edit">
+					  							</div>
+					  						</div>
+					  					<% } %>
+				  						<% if (vid.from==="disk") { %>
+											<video controls='' name='media' class='preview-video'><source class='video-href' src='<%= vid.viewpath %>' type='video/mp4'></video>
+				  							<% } %>
+				  						<% if (vid.from==="internet") { %>
+											<iframe width="418" height="258" src="<%= vid.path %>?wmode=transparent" frameborder="0" allowfullscreen wmode="opaque"></iframe>
+				  							<% } %>
+				 					</div>
+				 					<div class="place-for-text-about-nomain-video">
+										<span class='video-desc-span'><%= vid.description %></span>
+										<textarea class='video-description-input'><%= vid.description %></textarea>
+				 					</div>
+				 					<div class="place-for-control-panel-nomain">
+				 						<%- (user_id=='activity' ? "<a href='/valbum?activity="+activity+"&mainvid="+vid._id+"'><span class='video-name-span'>"+vid.name+"</span></a>" : "<a href='/valbum?user="+user_id+"&mainvid="+vid._id+"'><span class='video-name-span'>"+vid.name+"</span></a>") %>
+				 						<input type='text' class='video-name-input' value='<%= vid.name %>'>
+				 						<span class='corner-panel-save'>Сохранить</span>
+				 						<span class='saved-nesaved'></span>
+				 					</div>
+			 					</div>
+		 				<%	}  
+		 				}); %>
+		 				</div>
+
+ 					<% } else { %>
+ 						<div class="video-not-found">
+ 							Не добавлено ни одного видео
+ 						</div>
+
+ 					<% } %>
+
+ 			</div>
+ 		</div>
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+	</div>
+
+<!-- Всплывающие окна -->
+	<!-- Всплывающее окно добавления видюхи -->
+		<div class="window-of-add-video">
+			<div class="window-of-add-video-close">
+			</div>
+			<div class="window-of-create-photoalbum-container">
+				<input type="text" class="name-of-album" placeholder="Название видео">
+				<textarea class="description-of-album" placeholder="Описание видео"></textarea>
+				
+				<div class="load-video-in-album">
+					<span class="info-about-load-video">
+						Выберите файл на компьютере
+					</span>
+					<span class="upload-progress">
+
+					</span>
+					<form action="/valbum/vUpload" method="POST" enctype='multipart/form-data' id="form-vUpload">
+						<input type="file" class="video-upload-input" name="file" accept="video/mp4">
+						<input type="hidden" name="user_id" value="<%= user_id %>" class="user_identificator">
+					</form>
+				</div>
+
+				<div class="load-video-from-url">
+					Или... <input type="text" class="url-for-upload-video" placeholder="введите ссылку на видео в интернете">
+				</div>
+
+				<div class="added-video-container">
+					<label class="label-add-video"></label>
+				</div>
+			</div>
+
+			<div class="add-video-cancel">
+				Отмена
+			</div>
+			<div class="add-video-submit">
+				Сохранить
+			</div>
+		</div>
+
+
+</body>
+</html>
+
+

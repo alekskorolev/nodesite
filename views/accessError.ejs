@@ -1,0 +1,39 @@
+<!-- Подключение заголовков -->
+<% include common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include common/topmenu %>
+
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="img/photo-fone.png" class="photo-name" >
+			</div>
+		</div>
+			<div class="photo-cont-wrap">
+				<br><br>
+				<p>У вас нет доступа к этой странице.</p><br>
+				<%
+				if (!user.authorized) {
+				%>
+					<p>Пожалуйста, авторизуйтесь</p>
+				<%	
+				} else {
+				%>
+					<p>Вам не хватает прав пользователя.</p>
+				<%	
+				}
+				%><br><br>
+			</div>
+
+		<!-- Блок Футера -->
+		<% include common/footer %>
+	</div>
+
+<!-- Всплывающие окна -->
+
+
+
+</body>
+</html>
+
+

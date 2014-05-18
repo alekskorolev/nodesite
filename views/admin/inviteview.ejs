@@ -1,0 +1,68 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+
+<div class="logo-fon-profil"><div class="profil-wrap"><div class="expert-name profil-wrap"><%- invite.name %> <%- invite.faname %> <%- invite.family %></div></div></div>
+	<div class="profil-wrap">
+		<div class="admin-invite-wrap">
+			<div class="profil-info">
+				<span class="contact-info">Информация об инвайте:</span>
+				<div class="contact-block">
+					<div class="info">Место работы:</div>
+					<div class="work"><%- invite.work %></div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Email:</div>
+					<div class="email"><%- invite.email %></div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Для чего нужен ME:</div>
+					<div class="education"><%- invite.why %></div>
+				</div>
+ 				<a href="#" class="invSend" id="<%= invite._id %>">Отправить</a> 
+ 				<% if (invite.sent) { 
+ 					if (invite.negative) { %>
+ 						<a href='/admin/neginvites/'>Назад к списку</a>
+ 					<% } else { %> 
+ 						<a href='/admin/invites/'>Назад к списку</a>
+ 					<% } %>
+ 				<% } else { %>
+ 					<a href='/admin/newinvites/'>Назад к списку</a>
+ 				<% } %>
+			</div>
+		</div>
+		<div class="admin-videos">				
+				<div class="slide-media-wrap">
+					<div class="my-media">
+						<div class="folder active">Видео</div>
+					</div>
+						<div class="admin-invite-videos js-folder active">
+ 							<div class="my-album">
+											<% if (invite.file && invite.file.length > 10) { %>
+												<span class="admInvtitle"><h3>Указанные временные метки:</h3><%- invite.filetime %></span>
+												<video class="inviteVideo" 
+														  controls preload="auto" width="800" height="480"
+														  poster="<%- invite.file %>.jpg"
+														 <source src="<%- invite.file %>" type='video/mp4' />
+												</video>
+
+										<% } %>
+										<% if (invite.url[0]) invite.url.forEach(function(video){ %>
+										<span class="admInvtitle"><h3>Указанные временные метки:</h3><%- video.timeline %></span>
+<iframe class="inviteVideo" width="800" height="480" src="<%- video.url %>" frameborder="0" allowfullscreen>Видео невозможно отобразить в данном браузере</iframe>
+										<% }); %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+			<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

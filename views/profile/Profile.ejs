@@ -1,0 +1,520 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+
+<div class="logo-fon-profil">
+	<div class="expert-name-position">
+		<div class="expert-name view-name">
+			<span class="namesProf nameSpan"><%- profile.name %></span>
+			<span class="namesProf fanameSpan"><%- profile.faname %></span>
+			<span class="namesProf familySpan"><%- profile.family %></span>
+		</div>
+		<div class="expert-name editor-name">
+			<input form="profile" type="text" class="edit-names" value="<%- profile.name %>"  id="profName" name="profName" placeholder='Имя'>
+			<input  form="profile" type="text" class="edit-names" value="<%- profile.faname %>"  id="profFName" name="profFName" placeholder='Отчество'>
+			<input  form="profile" type="text" class="edit-names" value="<%- profile.family %>" style='border: 0px;'  id="profFam" name="profFam" placeholder='Фамилия'>
+<!-- 			<input type="text" form="profile" class="set under profio namesProf" value="<%- profile.family %>" name="profFam" id="profFam">
+			<input type="text" form="profile" class="set under profio namesProf" value="<%- profile.faname %>" name="profFName" id="profFName">
+			<input type="text" form="profile" class="set under profio namesProf" value="<%- profile.name %>" name="profName" id="profName"> -->
+		</div>
+	</div>
+</div>
+	<div class="profil-wrap">
+		<div class="profil-ava-menu">
+			<div class="logo_wrap-photo">
+				<div class="photo">
+				<% 
+					role = '';
+					if (profile.role=='expert') {
+						role = 'expert';
+					}
+				   if (profile.role=='editor') {
+				   	    role = 'editor';
+				    }
+				 %>
+
+					<div class='role-status <%= role %>'>
+					</div>
+					<img src="<%- profile.photo || "/img/profil-foto.png" %>" class="profil-foto">
+					<div class="load-avatar">
+						<div class="load-photo">
+							<span style="margin-left: 25px;cursor: pointer;">Загрузите фото</span>
+							<div class="my_photoload"></div>
+							<form name="changeAva" id="changeAva" method="POST" action="/rest/prephoto"  enctype="multipart/form-data">
+							<input type="file" class="please_load" name="photo" id="photo">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="profil-menu">
+				<!-- <div class="vertical-line"></div>
+				<div class="menu-list">Друзья</div><br> -->
+				<div class="vertical-line"></div>
+				<div class="menu-list">Сообщения</div><br>
+				<div class="vertical-line"></div>
+				<div class="menu-list settings">Реадктировать</div>
+				<div class="container-settings">
+				<form id="profile" method="POST" action="/rest/profedit">
+				<div class="settings-wrap">
+						<div  class="edit-visible">
+							<span class="name-visible">Настройки видимости</span>
+							<img src="img/mini-dd.png" class="set-dropdown-btn">
+								<div class="title-vis hide">
+									<input class="category" name="visibleSet" value="onlyUser" type="radio" id="check2" <%= profile.visibleset=="onlyUser" ? "checked" : "" %>><label for="check2"><span></span>Только мне.</label><br>
+									<input class="category" name="visibleSet" value="editors" type="radio" id="check3" <%= profile.visibleset=="editors" ? "checked" : "" %>><label for="check3"><span></span>Мне и редакторам.</label><br>
+									<input class="category" name="visibleSet" value="authorized" type="radio" id="check4" <%= profile.visibleset=="authorized" ? "checked" : "" %>><label for="check4"><span></span>Пользователям сайта.</label><br>
+									<input class="category" name="visibleSet" value="edAndFrnd" type="radio" id="check5" <%= profile.visibleset=="edAndFrnd" ? "checked" : "" %>><label for="check5"><span></span>Мне, редакторам и экспертам-друзьям.</label><br>
+									<input class="category" name="visibleSet" value="all" type="radio" id="check6" <%= profile.visibleset=="all" ? "checked" : "" %>><label for="check6"><span></span>Всем, без ограничений.</label><br>
+								</div>
+						</div>
+						<div class="change-password">
+							<input class="pass-write" type="password" name="profnewPass" placeholder="Пароль">
+							<input class="pass-write" type="password" name="profnewPassEncore" placeholder="Повторите пароль">
+						</div>
+						<div class="btn-save canceleditprofile">
+							<span>Отменить</span>
+						</div>
+						<div class="btn-save saveeditprofile">
+							<span>Сохранить</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+<!-- 			<div class="go-to-social">
+				<img src="img/vk-profil.png" class="soc-img">
+				<a  target="_blank" class="in-social" href="https://vk.com/">https://vk.com/</a><br>
+				<img src="img/facebook-profil.png" class="soc-img">
+				<a target="_blank" class="in-social" href="https://www.facebook.com">https://www.facebook.com</a>
+			</div> -->
+			
+			<div class="go-to-social">
+				<label class="social-links"></label>
+				<span class="vk-profile">
+				<% if (profile.urlVk) { %>
+					<img src="img/vk-profil.png" class="soc-img">
+					<a  target="_blank" class="in-social" href="<%= profile.urlVk %>">Страница ВКонтакте</a><br>
+				<% } %>
+				</span>
+				<span class="facebook-profile">
+				<% if (profile.urlFacebook) { %>
+					<img src="img/facebook-profil.png" class="soc-img">
+					<a  target="_blank" class="in-social" href="<%= profile.urlFacebook %>">Страница Facebook</a><br>
+				<% } %>
+				</span>
+				<span class="personal-site">
+				<% if (profile.urlUser) { %>
+					<a target="_blank" class="in-social" href="<%= profile.urlUser %>">Личный сайт</a><br>
+				<% } %>
+				</span>
+			</div>
+
+			<div class="go-to-social-edit">
+				<%
+
+				if (!profile.urlVk) { profile.urlVk = ""; }
+				if (!profile.urlFacebook) { profile.urlFacebook = ""; }
+				if (!profile.urlUser) { profile.urlUser = ""; }
+
+				%>
+				<input type="text" class="set under input-url" value="<%= profile.urlVk %>" name="urlVk" placeholder="Ссылка на профиль vk.com" id="profUrlVk"><br>
+				<input type="text" class="set under input-url" value="<%= profile.urlFacebook %>" name="urlFacebook" placeholder="Ссылка на профиль facebook" id="profUrlFacebook"><br>
+				<input type="text" class="set under input-url" value="<%= profile.urlUser %>" name="urlUser"  placeholder="Адрес вашего личного сайта" id="profUrlUser">
+			</div>
+
+
+			<!-- Возможность редактировать рейтинг администратору -->
+			<% if (user.role=='admin') { %>
+						<div class="star-rating profileRatingEdit">
+							<input form="profile" type="radio" name="profRating" value="1" <% if (profile.rating==1) {%> checked <% } %>><i></i>
+							<input form="profile" type="radio" name="profRating" value="2" <% if (profile.rating==2) {%> checked <% } %>><i></i>
+							<input form="profile" type="radio" name="profRating" value="3" <% if (profile.rating==3) {%> checked <% } %>><i></i>
+							<input form="profile" type="radio" name="profRating" value="4" <% if (profile.rating==4) {%> checked <% } %>><i></i>
+							<input form="profile" type="radio" name="profRating" value="5" <% if (profile.rating==5) {%> checked <% } %>><i></i>
+						</div>
+			<% } else { %>
+				<div class="profil-reit">
+										<%
+										var vs = 5;
+										for (var i=0;i<profile.rating; i=i+1) {
+											vs = vs - 1;
+										%>
+											<img src="img/reiting-star.png">
+										<%
+										}	
+										if (vs>0) {
+											for (var i=0; i<vs;i=i+1) {
+										%>
+												<img src="img/reiting-star2.png">
+										<%
+											}
+										} 
+										%>
+				</div>
+
+			<%	} %>
+
+			<a href="/about" class="up_reit">Как поднять рейтинг?</a>
+		</div>
+		<div class="profil-information">
+			<div class="profil-info">
+				<span class="contact-info">Контакты</span>
+				<div class="contact-block">
+					<div class="info">Телефон:</div>
+					<div class="number write">
+						<input type="text" class="set under" readonly value="<%- profile.phone %>" name="profPhone" id="profPhone">
+					</div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Email:</div>
+					<div class="my-email write">
+						<input type="text" class="set under" readonly value="<%- profile.email %>" name="profEmail" id="profEmail">
+					</div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Место жительства:</div>
+					<div class="my-address write">
+						<input type="text" class="set under" readonly value="<%- profile.adress %>" name="profAdress" id="profAdress">
+					</div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Место работы:</div>
+					<div class="my-address write">
+						<input type="text" class="set under" readonly value='<%- profile.work %>' name="profWork" id="profWork">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="personal-wrap">
+			<div class="profil-info">
+				<span class="contact-info">Личная информация</span>
+				<div class="contact-block">
+					<div class="info">Пол:</div>
+					<div class="edit-inform-sex write">
+						<div class="sex"><%- ((profile.gender=="woman") ? "Женский" : "Мужской" ) %></div>
+						<input class="set category" type="radio" id="profGenderWomen" name="profGender" value="woman" <%- ((profile.gender=="woman") ? "checked" : "" ) %>><label for="profGenderWomen"><span></span>Женский</label>
+						<input class="set category" type="radio" id="profGenderMen" name="profGender" value="man" <%- ((profile.gender=="man") ? "checked" : "" ) %>><label for="profGenderMen"><span></span>Мужской</label>
+					</div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Дата рождения:</div>
+					<div class="birthday write">
+						<input type="text" width="100" readonly class="under dpickerRead" id="profBday" value="<%- profile.bday.getDate() %>/<%- profile.bday.getMonth()+1 %>/<%- profile.bday.getFullYear() %>">
+						<input type="text" width="100" class="inputDate under dpickerEdit" name="profBday" id="profBday" value="<%- profile.bday.getDate() %>/<%- profile.bday.getMonth()+1 %>/<%- profile.bday.getFullYear() %>">
+					</div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Образование:</div>
+					<div class="education write">
+						<input type="text" class="set under" readonly value="<%- profile.edu %>" name="profEdu" id="profAddedu">
+					</div>
+				</div>
+				<div class="contact-block">
+					<div class="info">Доп. образование:</div>
+					<div class="education write">
+						<input type="text" class="set under" readonly value="<%- profile.addedu %>" name="profAddedu" id="profEdu">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="extra-info">				
+				<div class="see_all">
+					<span class="open-all" style="margin-right: 40px;">Развернуть все</span>
+					<span class="close-all">Свернуть все</span>
+				</div>
+				
+				<div class="more_info">
+					<div class="my-type">
+						Темы телевезионных шоу:
+					</div>
+					<div class="spoiler">
+						<div class="item">
+							<%
+								zpt = "";
+								profile.showtheme.forEach( function (e, i) {
+									%>
+									<%= zpt %><%= e %>
+									<%
+									zpt = ", ";
+								});
+									if (profile.showtheme.length==0) {
+										console.log("Ничего не добавлено, темы шоу");
+										%> Ничего не добавлено <%
+									}								
+							%>
+						</div>
+						<div class="visible-item">
+							<%
+							var o = dicts.dictShowthemes;
+							for (var c in o) { 
+								var ch = "";
+								var id = o[c]._id.toString();
+								if ((profile.showtheme.indexOf(o[c].title.toString()))!=-1) ch = "checked";
+								%>
+								<div class="cat-item">
+									<input class="set category" type="checkbox" id="prof<%= o[c].dict %>[<%= o[c]._id %>]" name="prof<%= o[c].dict %>" value="<%= o[c].title %>" <%= ch %>>
+									<label for="prof<%= o[c].dict %>[<%= o[c]._id %>]">
+									<span></span><%= o[c].title %></label>
+								</div>
+							<%
+							}
+							%>
+						</div>
+					</div>
+				</div>
+
+				<div class="more_info">
+					<div class="my-type">
+						Интересы, увлечения:
+					</div>
+					<div class="spoiler">
+						<div class="item">
+							<%
+								zpt = "";
+								profile.interest.forEach( function (e, i) {
+									%>
+									<%= zpt %><%= e %>
+									<%
+									zpt = ", ";
+								});
+									if (profile.interest.length==0) {
+										console.log("Ничего не добавлено, интересы");
+										%> Ничего не добавлено <%
+									}
+							%>
+						</div>
+						<div class="visible-item">
+							<%
+							var o = dicts.dictInterests;
+							for (var c in o) { 
+								var ch = "";
+								var id = o[c]._id.toString();
+								if ((profile.interest.indexOf(o[c].title.toString()))!=-1) ch = "checked";
+								%>
+								<div class="cat-item">
+									<input class="set category" type="checkbox" id="prof<%= o[c].dict %>[<%= o[c]._id %>]" name="prof<%= o[c].dict %>" value="<%= o[c].title %>" <%= ch %>>
+									<label for="prof<%= o[c].dict %>[<%= o[c]._id %>]">
+									<span></span><%= o[c].title %></label>
+								</div>
+							<%
+							}
+							%>
+						</div>
+					</div>
+				</div>
+
+				<div class="more_info">
+					<div class="my-type">
+						Типы передач, в которых хотели бы участвовать:
+					</div>
+					<div class="spoiler">
+						<div class="item">
+							<%
+								zpt = "";
+								profile.showtype.forEach( function (e, i) {
+									%>
+									<%= zpt %><%= e %>
+									<%
+									zpt = ", ";
+								});
+									if (profile.showtype.length==0) {
+										console.log("Ничего не добавлено, типы шоу");
+										%> Ничего не добавлено <%
+									}
+							%>
+						</div>
+						<div class="visible-item">
+							<%
+							var o = dicts.dictShowtypes;
+							for (var c in o) { 
+								var id = o[c]._id.toString();
+								console.log(profile.showtype.indexOf(o[c].title)!=-1);
+								ch = "";
+								if (profile.showtype.indexOf(o[c].title)!=-1) ch = "checked";
+								%>
+								<div class="cat-item">
+									<input class="set category" type="checkbox" id="prof<%= o[c].dict %>[<%= o[c]._id %>]" name="prof<%= o[c].dict %>" value="<%= o[c].title %>" <%= ch %>>
+									<label for="prof<%= o[c].dict %>[<%= o[c]._id %>]">
+									<span></span><%= o[c].title %></label>
+								</div>
+							<%
+							}
+							%>
+						</div>
+					</div>
+				</div>
+
+				<div class="more_info">
+					<div class="my-type">
+						Профессиональная деятельность:
+					</div>
+					<div class="spoiler">
+						<div class="item">
+							<%
+								zpt = "";
+								profile.prof.forEach( function (e, i) {
+									%>
+									<%= zpt %><%= e %>
+									<%
+									zpt = ", ";
+								});
+									if (profile.prof.length==0) {
+										console.log("Ничего не добавлено, профессии");
+										%> Ничего не добавлено <%
+									}
+							%>
+						</div>
+						<div class="visible-item">
+							<%
+							var o = dicts.dictProfs;
+							for (var c in o) { 
+								var ch = "";
+								var id = o[c]._id.toString();
+								if ((profile.prof.indexOf(o[c].title.toString()))!=-1) ch = "checked";
+								%>
+								<div class="cat-item">
+									<input class="set category" type="checkbox" id="prof<%= o[c].dict %>[<%= o[c]._id %>]" name="prof<%= o[c].dict %>" value="<%= o[c].title %>" <%= ch %>>
+									<label for="prof<%= o[c].dict %>[<%= o[c]._id %>]">
+									<span></span><%= o[c].title %></label>
+								</div>
+							<%
+							}
+							%>
+						</div>
+					</div>
+				</div>
+
+
+				
+<!-- 				<div class="more_info">
+					<div class="my-type">Новости о себе</div>
+					<div class="spoiler">
+						<div class="item"><div class="coming-title">COMING SOON</div></div>
+						<div>
+							<textarea class="fresh" maxlength="220" placeholder="Добавить новость..."></textarea>
+						</div>
+					</div>
+				</div> -->
+				<div class="slide-media-wrap">
+					<div class="my-media">
+						<div class="folder active">Фото</div>
+						<div class="folder">Видео</div>
+						<div class="folder">События</div>
+					</div>
+					<div class="album js-folder active">
+						<div class="my-album">
+							<div class="slide_left lg-arrow">
+								<img src="img/btn-slide-left.png">
+							</div>
+							<div class="slide_right lg-arrow">
+								<img src="img/btn-slide-right.png">
+							</div>
+							<div class="album-place">
+								<div class="albums">
+								<%
+								console.log(albums);
+								if (albums) { albums.forEach(function (alb) {
+								%>
+									<div class="slide-album">
+										<a href="/album?user=<%= profile._id %>">
+										<%
+										if (alb.photos) {
+											min = 0; max = alb.photos.length-1;
+											var rand = min - 0.5 + Math.random()*(max-min+1);
+											rand = Math.round(rand);
+											src = alb.photos[rand];
+										%>
+											<img src='<%= src %>' class='alboom'>
+										<%
+										} else {
+										%>
+											<img src="img/big-load.png" class="see-album">
+										<%
+										}
+										%>
+										</a>
+										<span href="/album/view?id=<%= alb._id %>" class="name-album"><%= alb.name %></span>
+									</div>
+								<%
+								}); }
+								%>
+
+									<div class="slide-album">
+										<a href="/album?user=<%= profile._id %>"><img src="img/big-load.png" class="see-album"></a>
+										<span href="/album?user=<%= profile._id %>" class="name-album">Альбомы</span>
+									</div> 
+									<!--
+									<div class="slide-album">
+										<a href="/album?user=<%= profile._id %>"><img src="img/big-load.png" class="see-album"></a>
+										<span href="/album?user=<%= profile._id %>" class="name-album">Создать альбом</span>
+									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="album video js-folder">
+<!-- 					<div class="coming-media">
+						<div class="coming-back"></div>
+						<div class="coming-title">COMING SOON</div>
+					</div> -->
+							<div class="my-album my_video">
+								<div class="video-place">
+									<div class="videos">
+
+									<% console.log(videos);
+									for(var i=0; i< ( (videos.length > 3) ? 3 : videos.length); i++ ) {
+										vid = videos[i];
+									%>
+										<a href='/valbum?user=<%= profile._id %>&mainvid=<%= vid._id %>'>
+											<div class='slide-album-video'>
+												<img src="<%= vid.videoprev %>" class="prev-video-in-profile">
+												<div class='bottom-panel'>
+													<% if (vid.name) { %>
+															<%= vid.name %>
+														<% } else { %>
+															&nbsp;&nbsp;
+														 <% } %>
+												</div>
+						  					</div>	
+						  				</a>
+					  				<% } %>			
+
+										<div class="slide-album">
+											<a href="/valbum?user=<%= profile._id %>"><img src="img/big-load.png" class="see-album"></a>
+											<a href="/valbum?user=<%= profile._id %>" class="name-album">Добавить видео</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="album action js-folder">
+							<div class='encore'>
+								<a href='/events/<%= profile._id %>'>Все >>></a>
+							</div>
+							<div class="my-album my_action">
+								<% if (events&&events.length>0) { %>
+									<% events.forEach( function (event) { %>
+										<%= include ./_event_small %>
+									<% }) %>
+								<% } else { %>
+									<div class='no-eventSmall'>Не добавлено ни одного события</div>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		</form>
+</div>
+			<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

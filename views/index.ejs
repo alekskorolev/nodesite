@@ -1,0 +1,61 @@
+<!-- Подключение заголовков -->
+<% include common/head %>
+	<div class="container">
+	<!-- Блок верхнего меню -->
+		<% include common/topmenu %>
+
+		<div class="fonlog">
+			<div class="log_wrap">
+				<div class="log">
+					<img src="/img/logotyp.png">
+				</div>
+			</div>
+		</div>
+
+	<!-- Блок среднего меню -->
+		<% include common/dropdown %>
+
+		<div class="slide_wrap">
+			<div class="slide-avatar">
+				<div class="btn_left lg-arrow">
+					<img src="/images/to_left.png">
+				</div>
+				<div class="btn_right lg-arrow">
+					<img src="/images/to_right.png">
+				</div>
+				<div class="avatar_place">
+<!-- 					<div class="avatar_carusel">
+						<img class="avatar_person" src="/images/woman1.png">
+						<img class="avatar_person" src="/images/man1.png">
+						<img class="avatar_person" src="/images/woman2.png">
+						<img class="avatar_person" src="/images/man2.png">
+						<img class="avatar_person" src="/images/woman3.png">
+						<img class="avatar_person" src="/images/man3.png">
+						<img class="avatar_person" src="/images/woman4.png">
+						<img class="avatar_person" src="/images/man4.png">
+						<img class="avatar_person" src="/images/woman5.png">
+						<img class="avatar_person" src="/images/man5.png">
+					</div> -->
+					<div class="avatar_carusel">
+						<% users.forEach( function (us) { %>
+							<% usName = us.name + ' ' + us.faname + ' ' + us.family %>
+							<a href='/profileview?id=<%= us._id %>'>
+								<img src='<%= us.photo %>' class='avatar_person' 
+									title='<%= usName %>' alt='<%= usName %>'>
+							</a>
+						<% }); %>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="expert">
+				<div class="expert_place">ТОП 10</div>
+		</div>
+
+	<!-- Блок Футера -->
+		<% include common/footer %>
+
+	</div>
+</body>
+</html>

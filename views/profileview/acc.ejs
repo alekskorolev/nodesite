@@ -1,0 +1,17 @@
+<%
+			if (user.role=="admin") {
+			%>
+				<div class="settings-wrap">
+					<b>Панель администратора: </b><br>
+					Роль:
+						<select form="adminSave" name="role">
+							<option value="admin" <%= profile.role=="admin" ? "selected" : "" %>>Администратор</option>
+							<option value="moder" <%= profile.role=="moder" ? "selected" : "" %>>Модератор</option>
+							<option value="editor" <%= profile.role=="editor" ? "selected" : "" %>>Редактор</option>
+							<option value="expert" <%= profile.role=="expert" ? "selected" : "" %>>Эксперт</option>
+						</select><br>
+					<br><input type="submit" value="Сохранить" form="adminSave">
+				</div>
+			<%
+			}
+			%>			

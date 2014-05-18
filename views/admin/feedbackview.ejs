@@ -1,0 +1,23 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+
+		<div class='profile-wrap'>
+			name: <input type="text" readonly id="FeedbackName" value="<%= feedback.name %>"><br>
+			email: <input type="text" readonly id="FeedbackEmail" value="<%= feedback.email %>"><br>
+			сообщение: <%= feedback.msg %><br>
+		</div>
+
+		<textarea id="Answer"></textarea>
+		<input type="hidden" name="FeedbackId" id="FeedbackId" value="<%= feedback._id %>">
+		<input type="submit" class="fbAnswer-ok" value="Отправить ответ">
+
+
+			<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/photo-fone.png" class="photo-name" >
+			</div>
+		</div>
+			<div class="photo-cont-wrap">
+				Выберите файлы для загрузки: <br><br>
+				<form action="/album/uploadProcess" method="POST" id="uploadProcess" enctype='multipart/form-data'>
+					<input type="hidden" name="album_id" value="<%= album_id %>">
+					<input type="file" name="photo_upload"><br>
+					<label id="insert_input">
+					<input type="button" value="Загрузить" id="uploadProcessSubmit">
+				</form>
+
+				<br><br><input type="button" value="Добавить полей" id="new_file">
+			</div>
+
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+	</div>
+
+<!-- Всплывающие окна -->
+
+
+
+</body>
+</html>
+
+

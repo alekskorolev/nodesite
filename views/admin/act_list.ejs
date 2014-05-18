@@ -1,0 +1,49 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<body>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+
+		<div class="actAdmin-container">
+
+			<div class="links">
+				<a href='/admin/'>К панели администратора</a>
+			</div>
+
+			<div class="act-list">
+				<% if (acts) {
+					acts.forEach( function (act) { %>
+						<div class='this-act'>
+							<div class='act-name'><%= act.name %></div>
+							<div class='act-desc'><%= act.description %></div>
+							<div class='act-created'><%= act.created %></div>
+							<div class='act-start'><%= act.start %>, <%= act.timestart %></div>
+							<div class='act-finish'><%= act.finish %>, <%= act.timefinish %></div>
+							<div class='photos'>
+							<b>Фотографии: </b>
+							<% act.photos.forEach( function (ph) { %>
+								<a href='<%= ph %>' target="_blank"><%= ph %></a>
+							<% }); %>
+							</div>
+							<div class='videos'>
+							<b>Видео: </b>
+							<% act.videos.forEach( function (ph) { %>
+								<a href='<%= ph %>' target="_blank"><%= ph %></a>
+							<% }); %>
+							</div>
+						</div>
+				<%
+					});
+				}
+				%>
+			</div>
+
+		</div>
+
+	<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

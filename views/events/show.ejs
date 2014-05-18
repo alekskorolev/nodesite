@@ -1,0 +1,38 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/events-fon.png" class="photo-name" >
+			</div>
+		</div>
+ 		<div class="content-place">
+ 			<div class="head-button">
+ 				<a href='/events/<%= event.user %>'>
+ 					<div class='go-to-profile'>
+ 						Все
+ 					</div>
+ 				</a>
+			</div>
+
+			<div class='events-place'>
+				<% if (edit) { %>
+					<%= include ./_event_edit %>
+				<% } else { %>
+					<%= include ./_event %>
+				<% } %>
+			</div>
+			 			
+ 		</div>
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+		<% include ./_create_window %>
+	</div>
+
+		<script type="text/javascript" async="" src='/js/events.js'></script>
+</body>
+</html>
+
+

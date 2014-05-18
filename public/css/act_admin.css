@@ -1,0 +1,48 @@
+.actAdmin-container {
+	width: 1024px;
+	margin: 0 auto;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.actAdmin-container h4 {
+	font-weight: bold;
+}
+.actAdmin-container .saved {
+	width: 984px;
+	padding: 20px;
+	border: #0f0;
+	background: #afa;
+}
+.actAdmin-container .links {
+	width: 1024px;
+	border-bottom: 1px solid silver;
+	margin-bottom: 20px;
+}
+.actAdmin-container .saved a {
+	font-size: 15px;
+	padding-left: 40px;
+	color: black;
+	text-decoration: underline;
+
+}
+.input-name {
+	display: inline-block;
+	width: 180px;
+	text-align: right;
+}
+
+.actAdmin-container input {
+	border: 1px solid silver;
+}
+
+ul.actAdmin-list li {
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid silver;
+}
+
+/* Просмотр мероприятия: */
+	.act-list .this-act {
+		border: 1px solid silver;
+		margin-bottom: 20px;
+	}

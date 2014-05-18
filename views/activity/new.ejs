@@ -1,0 +1,199 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+
+ <form action="/activity/setFace" method="POST" id="uploadActFace" enctype='multipart/form-data'>
+ 	<input type='file' class='input-for-load-face-activities' name='file' form="uploadActFace" style='display: none' accept="image/jpeg,image/png,image/gif">
+ </form>
+
+ <form action='/activity/loadphoto' method="POST" id="uploadPhotoInAct" enctype='multipart/form-data'>
+ 	<input type='file' style='display: none' class='load-photoalbum-for-activity' name='file' accept="image/jpeg,image/png,image/gif">
+ </form>
+
+<form action='/activity/loadvideo' method="POST" id="uploadVideoInAct" enctype='multipart/form-data'>
+ 	<input type='file' style='display: none' class='load-videoalbum-for-activity' name='file' accept="video/mp4">
+ </form>
+
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/activity-fon.png" class="photo-name" >
+			</div>
+		</div>
+
+ 		<div class="activity-container">
+
+ 			<form action='/activity/create' method='POST' id='form-for-create-activity'>
+
+ 			<div class='create-activity-container'>
+ 					<div class='create-activity-left-panel'>
+ 						<div class='check-activities-date-button-background'>
+	 						<div class='check-activities-date-button'>
+	 							Выберите дату
+	 						</div>
+	 						<input type='hidden' name='start'>
+	 						<div class='checked-date'>
+	 						</div>
+	 					</div>	
+ 						<div class='place-for-face-activities'>
+ 							
+ 							<div class='button-for-load-photo'>
+ 								Загрузить фото
+ 							</div>
+ 						</div>
+
+ 						<div class='label-in-create-activities'>Место</div>
+ 						<input type='text' name='place' class='input-in-create-activities'>
+
+ 						<div class='label-in-create-activities'>Стоимость</div>
+ 						<input type='text' name='price' class='input-in-create-activities'>
+
+ 						<div class='label-in-create-activities'>Время</div>
+ 						<input type='text' name='timestart' class='input-in-create-activities'>
+
+ 						<div class='invite-new-members-into-activity'>
+ 							Пригласить участников
+ 						</div>
+ 					</div>
+
+  					<div class='create-activity-right-panel'>
+	 					<div class='act-name-div'>
+	 						<div class='act-name-div-input'>
+	 							<input type='text' name='name' class='activities-name'>
+	 						</div>
+	 						<div class='act-name-div-text'>
+	 							Название
+	 						</div>
+	 					</div>
+
+	 					<div class='act-desc-div'>
+	 						<div class='act-desc-div-input'>
+	 							<textarea name='description' class='activities-description'></textarea>
+	 						</div>
+	 						<div class='act-desc-div-text'>
+	 							Описание
+	 						</div>
+	 					</div>
+
+	 					<div class='place-for-load-photo'>
+	 						<div class='place-for-photo-icon'>
+	 							<div class='info-about-uploadPhoto-progress'>
+	 								Загружаем 12%
+	 							</div>
+	 						</div>
+	 						<div class='place-for-succ-loaded-photo'>
+	 							<label class='label-for-place-loaded-photo'></label>
+	 						</div>
+	 					</div>
+	 					<div class='place-for-load-video'>
+	 						<div class='place-for-video-icon'>
+	 							<div class='info-about-uploadVideo-progress'>
+	 								Загружаем, 100%
+	 							</div>
+	 						</div>
+	 						<div class='place-for-succ-loaded-video'>
+	 							<label class='label-for-place-loaded-video'></label>
+	 						</div>
+	 					</div>
+
+	 					<div class='place-for-create-button'>
+		 					<div class='create-activity-button'>
+		 						Создать
+	 						</div>
+ 						</div>
+ 					</div>
+ 			</div>
+ 			<div class='create-activity-container-border-bottom'>
+ 			</div>
+
+	  		<div class='check-date-for-activity'>
+	 			<div class='close-check-date'>
+	 			</div>
+
+	 			<div class='head-for-this-window'>
+	 				Выбор даты мероприятия
+	 			</div>
+
+	 			<div class="place-for-calendar">
+	 				<div class='to-left-check-date'></div>
+	 				<div class='calendar-back cal-inline'></div>
+	 				<div class='calendar cal-inline'></div>
+	 				<div class='calendar-next cal-inline'></div>
+	 				<div class='to-right-check-date'></div>
+	 			</div>
+
+	 			<div class='place-for-button-cancel-or-submit'>
+	 				<div class='button-check-date-cancel'>Отменить</div>
+	 				<div class='button-check-date-submit'>Применить</div>
+	 			</div>
+	 		</div>
+
+	  		<div class='check-members'>
+	  			<div class='scroll-to-left-members'>
+	  			</div>
+	  			<div class='scroll-to-right-members'>
+	  			</div>
+
+	 			<div class='close-check-memb'>
+	 			</div>
+	 			<div class='place-for-check-memb-buttons'>
+	 				<div class='check-all-members'>
+	 					Отметить всех
+	 				</div>
+	 				<div class='get-invite-members'>
+	 					Пригласить
+	 				</div>
+	 			</div>
+
+	 			<div class='head-for-this-window'>
+	 				Выбор участников мероприятия
+	 			</div>
+
+	 			<div class='place-for-users-avatar'>
+<!-- 	 				<div class='one-user-in-check-memb'>
+	 					<div class='member-rating'>
+	 						<img src='/img/mini-star.png' class='mini-star-in-memb'>
+	 						<img src='/img/mini-star.png' class='mini-star-in-memb'>
+	 						<img src='/img/mini-star.png' class='mini-star-in-memb'>
+	 						<img src='/img/mini-star.png' class='mini-star-in-memb'>
+							<img src='/img/mini-star2.png' class='mini-star-in-memb'>
+	 					</div>
+	 					<div class='member-avatar'>
+	 						<img src='/img/man2.png'>
+	 					</div>
+	 					<div class='member-name'>
+	 						Имя
+	 					</div>
+	 					<div class='member-family'>
+	 						Константиновский
+	 					</div>
+	 					<div class='member-input-check'>
+	 						<img src='/img/checked-member.png' class='img-for-member-checked'>
+	 					</div>
+	 					<input type='checkbox' name='members' value='asdasd'>
+	 				</div> -->
+	 				<dic class='div-for-slider-members'>
+		 				<div class='line-for-members'><label class='label-for-line1'></label></div>
+		 				<div class='line-for-members'><label class='label-for-line2'></label></div>
+		 				<div class='line-for-members'><label class='label-for-line3'></label></div>
+		 			</dic>
+	 			</div>
+	 		</form>
+	 		</div>
+ 		</div>
+	</div>
+
+<% include ../common/footer %>
+<div id="for-admin-info">
+	<label id="for-admin">
+	</label>
+</div>
+
+		<script type="text/javascript" async="" src="/js/activity.js"></script>
+		<script type="text/javascript" async="" src='/js/activity_view.js'></script>
+</body>
+</html>
+
+

@@ -1,0 +1,125 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+ 		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/activity-fon.png" class="photo-name" >
+			</div>
+		</div>
+
+ 		<div class="activity-container">
+ 			<div class='place-for-mediaexp-button'>
+ 				<% if (user.role=='editor'||user.role=='admin') { %>
+ 					<a href='/activity/new'>
+	 					<div class='mediaexp-button'>
+	 						Создать мероприятие
+	 					</div>
+	 				</a>	
+ 				<% } %>
+ 			</div>
+
+ 			<div class="place-for-calendar">
+ 				<div class='to-left'></div>
+ 				<div class='calendar-back cal-inline'></div>
+ 				<div class='calendar cal-inline'></div>
+ 				<div class='calendar-next cal-inline'></div>
+ 				<div class='to-right'></div>
+ 			</div>
+
+ 			<div class="place-for-events">
+ 				<div class="event-days-list">
+
+ 				<% 
+ 				var indexDay = -1;
+ 				var days = [];
+ 				var day = '';
+ 				for ( var i = 0; i < acts.length; i++ ) {
+ 					if ( (acts[i].start.getFullYear() + '.' + acts[i].start.getMonth() + '.' + acts[i].start.getDate()) !== day) {
+ 						indexDay++;
+ 						days[indexDay] = {
+ 							name: acts[i].start,
+ 							acts: []
+ 						}
+ 						day = acts[i].start.getFullYear() + '.' + acts[i].start.getMonth() + '.' + acts[i].start.getDate();
+ 					}
+ 					days[indexDay].acts.push(acts[i]);
+ 				}
+ 				%>
+
+				<% var nameOfMonth = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'авгута', 'сентября', 'октября', 'ноября', 'декабря'];
+				   var shortNameOfMonth = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+				 %>
+ 				<% for (var i = 0; i<days.length; i++ ) { %>
+ 					<% tday = days[i] %>
+			 			<div class='this-day'>
+				 			<div class="head-of-day">
+				 				<div class="title-of-day">
+				 					Мероприятия <%= tday.name.getDate() %> <%= nameOfMonth[tday.name.getMonth()] %>
+				 				</div>
+				 				<div class='around-name-of-day'>
+				 					<div class="name-of-day">
+				 						<%=tday.name.getDate() %><%= shortNameOfMonth[tday.name.getMonth()] %>
+				 					</div>
+				 				</div>
+				 				<div class="open-all-activity">
+				 					<% if ( (tday.acts.length>1)&&(!bool) ) { %>
+				 						<a>Посмотреть все</a>
+				 					<% } %>
+				 				</div>
+				 			</div>
+				 			<% open = bool? 'open': ''; %>
+				 			<div class="place-for-all-activity <%= open %>">
+
+				 			<% for ( var j = 0; j<tday.acts.length; j++ ) { %>
+				 				<% tact = days[i].acts[j]; %>
+		 						<div class='this-activity'>
+		 							<a href='/activity/id/<%= tact._id %>'>
+			 							<div class='activity-avatar'>
+			 								<% if (tact.photoface) { %>
+			 									<img src='<%= tact.photoface %>'  style='width: 100px;height:100px'>
+			 								<% } %> 
+			 							</div>
+		 							</a>
+		 							<div class='activity-info'>
+		 								<div class='act-name'>
+		 									<%= tact.name %>
+		 								</div>
+		 								<div class='act-date'>
+		 									Добавлена <%= tact.created.getDate() %> <%= nameOfMonth[tact.created.getMonth()] %> <%= tact.created.getHours()<10 ? '0' + tact.created.getHours() : tact.created.getHours() %>:<%= tact.created.getMinutes()<10 ? '0' + tact.created.getMinutes() : tact.created.getMinutes() %>
+		 								</div>
+		 								<div class='act-time'>
+		 									<%= tact.timestart ? tact.timestart : 'Время не указано' %>
+		 								</div>
+		 								<div class='act-place'>
+		 									<%= tact.place %>
+		 								</div>
+		 								<div class='act-textinfo'>
+		 									<%= tact.description.substring(0,200) %>...
+		 								</div>
+		 							</div>
+		 						</div>
+		 					<% } %>
+		 				</div></div>
+ 				<% } %>
+ 				</div>
+ 			</div>
+ 		</div>
+
+	</div>
+
+<% include ../common/footer %>
+<div id="for-admin-info">
+	<label id="for-admin">
+	</label>
+</div>
+
+		<script type="text/javascript" async="" src="/js/activity.js"></script>
+		<script type="text/javascript" async="" src='/js/activity_view.js'></script>
+</body>
+</html>
+
+

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Search ME</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/perfect-scrollbar.css">
+	<script src="js/jquery-2.0.2.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/perfect-scrollbar.js"></script>
+	<script src="js/jquery.mousewheel.js"></script>
+</head>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+			<div class="logo-fon">
+				<div class="logo_wrap_other">
+					<img src="img/serach-expert.png" class="search_me">
+				</div>
+			</div>
+			<form action="/search/resOfSearch" method="get">
+			<div class="search-form_wrap">
+				<div class="search-form">
+			
+				<% if (advanced) { %>
+					<input name="family" type="text" maxlength="100" class="text-input" placeholder="Фамилия">
+					<input name="name" type="text" maxlength="100" class="text-input_name" placeholder="Имя">
+					<input name="faname" type="text" maxlength="100" class="text-input_namefather" placeholder="Отчество">
+					<div class="edit-inform">
+						<span class="name-inform gender-setting">Выберите пол</span>
+						<img src="img/edit.png" class="dropdown-btn">
+						<div class="title hide">
+							<input class="category" type="radio" name="gender" id="check" value="woman"><label for="check"><span></span>Женский</label><br>
+							<input class="category" type="radio" name="gender" id="check1" value="man"><label for="check1"><span></span>Мужской</label>
+						</div>
+					</div>
+					<input type="text" maxlength="5" name="age" onkeyup = 'this.value=parseInt(this.value) | ' class="text-input" placeholder="Возраст или диапазон">
+				<!-- 	<input type="text" maxlength="100" class="text-input" placeholder="Область"> -->
+					<input type="text" name="adress" maxlength="100" class="text-input" placeholder="Город">
+					<% }  %>
+					<div  class="edit-inform">
+						<span class="name-inform prof-spec">Профессиональная область</span>
+						<img src="img/edit.png" class="dropdown-btn">
+						<div id="scroll" class="title hide">
+
+							<%
+							for (var e in dicts) {
+							%>
+								<input class="category" type="checkbox" name="prof" id="check<%= (e+2) %>" value="<%= dicts[e].title %>"><label for="check<%= (e+2) %>"><span></span><%= dicts[e].title %></label><br>
+							<%
+							}
+							%>
+<!-- 
+							<input class="category" type="checkbox" id="check2"><label for="check2"><span></span>Дизайн</label><br>
+							<input class="category" type="checkbox" id="check3"><label for="check3"><span></span>Программирование</label><br>
+							<input class="category" type="checkbox" id="check4"><label for="check4"><span></span>Дипломатия</label><br>
+							<input class="category" type="checkbox" id="check5"><label for="check5"><span></span>Образование</label><br>
+							<input class="category" type="checkbox" id="check6"><label for="check6"><span></span>Кулинария</label><br>
+							<input class="category" type="checkbox" id="check7"><label for="check7"><span></span>Педагогика</label><br>
+							<input class="category" type="checkbox" id="check8"><label for="check8"><span></span>Шоу-бизнес</label><br>
+							<input class="category" type="checkbox" id="check9"><label for="check9"><span></span>Психология</label> -->
+						</div>
+					</div>
+<!-- 					<div class="edit-inform">
+						<span class="name-inform">Типы передач, в которых хотели бы участвовать</span>
+						<img src="img/edit.png" class="dropdown-btn">
+						<div id="scroll" class="title hide">
+							<input class="category" type="checkbox" id="check10"><label for="check10"><span></span>Семейное шоу</label><br>
+							<input class="category" type="checkbox" id="check11"><label for="check11"><span></span>Дебаты</label><br>
+							<input class="category" type="checkbox" id="check12"><label for="check12"><span></span>Ситком</label><br>
+							<input class="category" type="checkbox" id="check13"><label for="check13"><span></span>Комедийное шоу</label><br>
+							<input class="category" type="checkbox" id="check14"><label for="check14"><span></span>Кулинарная передача</label>
+						</div>
+					</div>
+					<div class="edit-inform">
+						<span class="name-inform">В каких шоу Вы участвовали</span>
+						<img src="img/edit.png" class="dropdown-btn">
+						<div id="scroll" class="title hide">
+							<input class="category" type="checkbox" id="check15"><label for="check15"><span></span>"Пусть говорят"</label><br>
+							<input class="category" type="checkbox" id="check16"><label for="check16"><span></span>"Здорово жить"</label><br>
+							<input class="category" type="checkbox" id="check17"><label for="check17"><span></span>"Модный приговор"</label><br>
+							<input class="category" type="checkbox" id="check18"><label for="check18"><span></span>"Битва экстрасенсов"</label><br>
+							<input class="category" type="checkbox" id="check19"><label for="check19"><span></span>"Вечерний Ургант"</label>
+						</div>
+					</div>
+					<div class="edit-inform">
+						<span class="name-inform">Тематики шоу, в которых хотели бы участвовать</span>
+						<img src="img/edit.png" class="dropdown-btn">
+						<div id="scroll" class="title hide">
+							<input class="category" type="checkbox" id="check20"><label for="check20"><span></span>Семья</label><br>
+							<input class="category" type="checkbox" id="check21"><label for="check21"><span></span>Здоровье</label><br>
+							<input class="category" type="checkbox" id="check22"><label for="check22"><span></span>Кухня</label><br>
+							<input class="category" type="checkbox" id="check23"><label for="check23"><span></span>Юмор</label><br>
+							<input class="category" type="checkbox" id="check24"><label for="check24"><span></span>Мода</label>
+						</div>
+					</div> -->
+					<div class="reiting">
+						<span class="reit">Значение рейтинга</span>
+						<div class="reit-line"></div>
+						<div class="star-rating">
+							<input type="radio" name="rating" value="1"><i></i>
+							<input type="radio" name="rating" value="2"><i></i>
+							<input type="radio" name="rating" value="3"><i></i>
+							<input type="radio" name="rating" value="4"><i></i>
+							<input type="radio" name="rating" value="5"><i></i>
+						</div>
+						<div class="search_button">
+							<input type="reset" class="search-cancel" value="Очистить">
+							<input type="submit" class="search-ok" value="Поиск">
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+	</div>
+</body>
+</html>

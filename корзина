@@ -1,0 +1,63 @@
+<div class='ME-calendar'>
+ 					<div class='monthName'>
+ 						<span>ФЕВРАЛЬ</span>
+ 					</div>
+ 					<div class='placeDay'>
+ 						<div class='nameWeek'>
+ 							<div class='li'>Пн</div>
+ 							<div class='li'>Вт</div>
+ 							<div class='li'>Ср</div>
+ 							<div class='li'>Чт</div>
+ 							<div class='li'>Пт</div>
+ 							<div class='li'>Сб</div>
+ 							<div class='li'>Вс</div>
+ 						</div>
+ 						<div class='days'>
+ 							<div class='ul'>
+ 								<div class='li'></div>
+ 								<div class='li'></div>
+ 								<div class='li'></div>
+ 								<div class='li'></div>
+ 								<div class='li'></div>
+ 								<div class='li'>1</div>
+ 								<div class='li'>2</div>
+ 							</div>
+  							<div class='ul'>
+ 								<div class='li act'>3</div>
+ 								<div class='li act'>4</div>
+ 								<div class='li'>5</div>
+ 								<div class='li'>6</div>
+ 								<div class='li'>7</div>
+ 								<div class='li'>8</div>
+ 								<div class='li'>9</div>
+ 							</div>
+  							<div class='ul'>
+ 								<div class='li'>10</div>
+ 								<div class='li'>11</div>
+ 								<div class='li'>12</div>
+ 								<div class='li'>13</div>
+ 								<div class='li'>14</div>
+ 								<div class='li'>15</div>
+ 								<div class='li'>16</div>
+ 							</div>
+  							<div class='ul'>
+ 								<div class='li act'>17</div>
+ 								<div class='li'>18</div>
+ 								<div class='li'>19</div>
+ 								<div class='li'>20</div>
+ 								<div class='li'>21</div>
+ 								<div class='li act'>22</div>
+ 								<div class='li'>23</div>
+ 							</div>
+  							<div class='ul'>
+ 								<div class='li'>24</div>
+ 								<div class='li'>25</div>
+ 								<div class='li'>26</div>
+ 								<div class='li act'>27</div>
+ 								<div class='li'>28</div>
+ 								<div class='li'></div>
+ 								<div class='li'></div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 				</div>

@@ -1,0 +1,37 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<body>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+
+<div class='admin-invite-module'>
+	<%= page.inviteType %> <a href='/admin/'>(Назад к панели администратора)</a>
+</div>
+		
+<div class="adminSummary">
+	<% invites.forEach(function(invite){ %>
+	
+	<span class="adminSumBlock">
+		<span class="adminBlockHead"><%= invite.family %> <%= invite.name %> <%= invite.faname %></span>
+		<ul class="adminStatic">
+			<li>Email: <%= invite.email %></li>
+			<li>Работа: <%= invite.work %></li>
+			<li>Зачем нужен Media Expert: <%= invite.why %></li>
+			<li><a href="/admin/invite?invId=<%= invite._id %>" class="adminVideoPopup" data-videoid="<%= invite._id %>">Открыть</a></li> 
+ 			<li><button class="invSend" id="<%= invite._id %>"><%= page.submit %></button ></li> 
+ 			<li><a href="/admin/negativeSend?id=<%= invite._id %>">Сформировать сообщение отказа</a></li>
+		</ul>
+	</span>
+	
+	
+	<% }) %>
+</div>
+
+
+	<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

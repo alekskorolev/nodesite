@@ -1,0 +1,31 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<body>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+
+		<%
+		if (!text) { %>
+		<div style='width: 1024px; margin: 0px auto; margin-top: 50px; margin-bottom: 50px'>
+			<a href='/admin/'>Назад к панели администратора</a>
+			<hr>
+			<form action='/admin/sendInvite' method='POST'>
+				Введите емайл: <input type='text' name='email'>
+				<br>
+				<input type='submit' value='Отправить инвайт' style='margin-top: 20px;'>
+			</form>
+		</div>
+		<% } else { %>
+		<div style='width: 1024px; margin: 0px auto; margin-top: 50px; margin-bottom: 50px'>
+			<%= text %><br>
+			<a href='/admin/sendInvite'>Назад</a>
+		</div>
+		<% } %>
+
+	<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+	</div>
+</body>
+</html>

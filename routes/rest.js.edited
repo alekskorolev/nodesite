@@ -1,0 +1,521 @@
+// Разделить бизнес логику для юзера и для админа
+var thumbler = require('video-thumb');
+var email = require("emailjs");
+var ejs = require("ejs");
+var fs = require('fs');
+var valid = require('../public/js/validator');
+var helpers = require('../lib/helpers');
+var async = require('async');
+var easyimg = require('easyimage');
+var mailaccount = {
+	user:    "azure_7e2274093135ff316e8168db4abaa480@azure.com", 
+	password:"8jfmceju", 
+	host:    "smtp.sendgrid.net", 
+	ssl:     false
+}
+/*var mailaccount = {
+	user:    "aksyline@gmail.com", 
+	password:"inbhkbwkexibq", 
+	host:    "smtp.gmail.com", 
+	ssl:     true
+}*/
+/*
+var ffmpeg = require('fluent-ffmpeg');*/
+/*
+ * REST routes.
+ */
+
+//Индексный	 маршрут REST интерфейса
+exports.index = function(req, res){
+	//TODO: реализовать методы REST
+  res.send('Api Work!!!');
+};
+
+// Ajax проверка существования зароса инвайта с указанным email
+exports.checkMailInvite = function (req, res) {
+	var Invite = app.get('models').invite;
+	Invite.findOne({email: req.body.email}, function (err, invite) {
+		if (invite) {
+			res.send('dublicate');
+		} else if (err) {
+			res.send('error');
+		} else {
+			res.send('ok');
+		}
+	});
+};
+
+//Отправка инвайта на запрос
+//TODO Вынести метод отправки инвайта в отдельную функцию
+//TODO Реализовать массовую отправку инвайтов по списку id
+exports.invSend = function(req, res){
+	var Invite = app.get('models').invite;
+	var Users = app.get('models').users;
+	var Profiles = app.get('models').profiles;
+	// Поиск запроса инвайта по id
+	Invite.findById(req.body.id, function (err, invite) {
+		// Если нашли
+		if (!err) {
+			// Подготовка вспомогательных данных для параллельных операций
+			// Генерация пароля
+			var password = helpers.generatePASS();
+			// Выполняем параллельно операции по созданию приглашения
+			async.parallel({
+				// Генерация email
+				email: function(callback){
+					//Если такой пользователь существует, то в емайл нужно отправить с существующим паролем
+					Users.findOne({userid: invite.email}, function(err, user) {
+						if (user) {
+							console.log("Улала, такой пользователь есть, пароль для него создан.");
+							password = user.newpass;
+						}
+					});
+					
+					// Читаем файл шаблона письма
+					fs.readFile(__dirname + '/../views/mailtempl/mail.ejs', 'utf8', function(err, data) {
+						// Если без ошибок
+					    if(!err) {
+					    	// Определяем на каком url запущен сайт
+					        var url = req.get('host');
+					        // Генерим тест письма
+					        var mailText = ejs.render(data, {
+					        	invite: invite, 
+					        	param: {
+					        		url: url,
+					        		pass: password
+					        	}
+					        });
+					        // Передаем сгенеренное письмо в дальнейшую обработку
+					        callback(null, mailText);
+					    } else {
+					    	// Если ошибка - передаем ошибку и нулевой результат
+					    	callback(err,null);
+					    }
+					});
+			    },
+			    // Создание записи пользователя, если пользователя еще не существует
+			    // находим пользователя в базе, если код уже высылался
+			    user: function(callback) {
+
+			    	Users.findOne( {userid: invite.email}, function (err, user)
+			    		{
+			    			if (!err) {
+			    				if (!user) {
+				    				console.log("Создаем пользователя");
+				   	 				// Создаем нового пользователя
+						    		var user = new Users({ 
+										userid: invite.email,  
+										newpass: password,
+										pass: "",
+										role: 'expert',
+										invid: invite._id,
+										code: invite.code,
+										email: invite.email,
+										family:  invite.family,
+										name: invite.name,
+										faname: invite.faname,
+										work: invite.work,
+									});
+									console.log(user);
+									// Сохраняем нового пользователя
+									user.save(function (err, newUser, numberAffected) {
+										if (err) {
+											// Если ошибка - возвращаем ошибку и нулевой результат
+										  	console.log("Ошибка создания пользователя");
+										  	console.log(err);
+										  	callback(err, null);
+										} else {
+											// иначе возвращаем нулевой результат и модель созданного пользователя
+											console.log("Пользователь создан", newUser);
+											callback(null, newUser);
+										}
+									});
+			    				} else {	
+			    					callback(null, user);
+			    					console.log("Пользователь уже создан " + user.email);
+			    				}
+			    			} else { 
+			    				console.log("Ошибка, что я могу сказать.");
+			    			}
+			    		});
+			    }
+			},
+				// Все параллельные запросы завершены
+				function (err, results) { 
+					// Если все ок, отправляем письмо
+					if (!err) {
+						// Создаем подключение
+						var mailer  = email.server.connect(mailaccount);		
+						// Отправлем письмо
+						mailer.send({
+			        		text: "Здравствуйте, пройдите по ссылке: http://"+invite.url+"/invite/accept?code=" + invite.code,
+			        		from:    "Media Experts <mediaexpertmail@gmail.com>", 
+						   	to:      invite.family + " " + invite.name + " <" + invite.email + ">",
+						   	subject: "Media Experts invite code confirmation",
+						   	attachment: 
+						      	[
+							      	{data: results.email, alternative:true}
+							   	]
+						}, function(err, message) { 
+							// Если ошибка, отправляем администратору сообщение об ошибке
+							/*
+							*	TODO: Инвайт остается в исходном состоянии но пользователь уже сохранен
+							*		Необходимо реализовать в начале роута проверку на наличие пользователя
+							*		И пересоздавать пользователя вместо создания нового с переотправкой сообщения
+							*		С кодом
+							*/
+							if (err) {
+								res.send('error send message');
+								console.log(err);
+							} else {
+								// Если сообщение успешно отправлено, модифицируем инвайт (дата отправки)
+								// и создаем профиль пользователя, выполняется асинхронно-параллельно
+								async.parallel({
+									// Изменяем у инвайта дату отправки
+									invite: function (callback) {
+										invite.sent = Date.now();
+										invite.save(function (err, invite, numberAffected) {
+											// возвращаем результат изменения
+											callback(err, invite);
+										}) 										
+									},
+								// 	// Создаем новый профайл для пользователя
+								// 	profile: function (callback) {
+								// 		var profile = new Profiles({
+								// 			userid: results.user._id,
+								// 			family:  invite.family,
+								// 			name: invite.name,
+								// 			faname: invite.faname,
+								// 			work: invite.work,
+								// 			email: invite.email
+								// 		});
+								// 		profile.save(function  (err, profile, numberAffected) {
+								// 			// Возвращаем результат сохранения
+								// 			callback(err, profile);
+								// 		});
+								// 	}
+								},
+									function (err, results) {
+										if (err) {
+											// сообщаем результат изменения профайла и инвайта
+											res.send('error save profile');
+										} else {
+											res.send('ok');
+										}
+									}
+								);
+
+							}
+						});				
+					} else {
+						res.send(err);
+					}
+				}
+			);
+		} else {
+			res.send(err);
+		}
+	});
+};
+// Интерфейс авторизации по логину и паролю
+exports.login = function (req, res) {
+	console.log(req.body);
+	var Users = app.get('models').users;
+	Users.findOne({ userid: req.body.login }, function (err, user) {
+		console.log(err, user);
+		if (user) {
+	        user.comparePassword(req.body.password, function(err, isMatch) {
+	        	console.log(err, isMatch); 
+	            if (err || !isMatch) { 
+	            	res.send('error');
+	            } else {
+		            console.log(req.body.password, isMatch); 
+		  			req.session.role = user.role;
+		  			req.session.uid = user._id;
+		  			req.session.userid = user.userid;
+		  			req.session.authorized = true;
+					res.send('authorized');
+	            }
+	        });
+
+		} else {
+			res.send('error');
+		}
+	});
+};
+// Интерфейс обнуления сессии
+exports.logout = function (req, res) {
+  req.session.role = undefined;
+  req.session.authorized = false;
+  	res.send('exit');
+};
+// Интерфейс отправки сообщения обратной связи
+// TODO: Реализовать просмотр сообщений в админке
+// TODO: Возможно реализовать отправку на email или sms админу
+exports.feedback = function (req, res) {
+	var errorList = {
+			feedbackName: "",
+			feedbackMail: "",
+			feedbackMsg: "",
+			empty: true
+		};
+	if ((errorList = valid.feedback(req.body)).empty) {
+		var Feedbacks = app.get('models').feedbacks;
+		var feedback = new Feedbacks({ 
+			name: req.body.feedbackName, 
+			email: req.body.feedbackMail, 
+			msg: req.body.feedbackMsg  
+		});
+		feedback.save(function (err, feedback) {
+			  if (err) // TODO handle the error
+			  feetback.speak();
+			  res.send(errorList);
+			});
+
+	} else {
+		res.send(errorList);
+	}
+	
+};
+// Реализация метода асинхронной Ajax загрузки файла для инвайта
+exports.invloader = function (req, res) {
+	console.log(req.files)
+	var filePath = req.files.file.path.split("/");
+	req.session.videofile = filePath[filePath.length-1];
+	thumbler.extract(req.files.file.path, req.files.file.path + '.jpg', '00:00:22', "640*360", function(){
+		// Временно отключаем конвертацию видео, необходимо выносить в отдельный сервис
+/*		var proc = new ffmpeg({ source: req.files.inviteVideo.path, timeout: 30000, })
+			.addOption('-bufsize', '131072k')
+		  .addOption('-f', 'webm')
+		  .saveToFile(req.files.inviteVideo.path+'.webm', function(stdout, stderr) {
+		    console.log('file has been converted succesfully', stdout, stderr);
+		  });*/
+		res.send({error: null, path: '/upload/' + req.session.videofile});
+	});
+};
+
+
+
+// Предварительная загрузка файла для редактирования
+exports.photoPreload = function (req, res) {
+	console.log(req.files);
+	var filePath = req.files.photo.path.split("/");
+	req.session.prephoto = filePath[filePath.length-1];	
+	req.session.prePath = req.files.photo.path;
+	res.send({error: null, path: '/upload/' + req.session.prephoto});
+/*	easyimg.resize({src:req.files.photo.path, dst:req.files.photo.path, width:64, height:64}, function(err, stdout, stderr) {
+	    if (err) throw err;
+	});*/
+/*	res.send('ok');*/
+};
+//обрезка, ресайз и сохранение фото
+exports.photoSave = function (req, res) {
+	var Profiles = app.get('models').profiles;
+	var area = req.body;
+	console.log(area);
+	var photo = req.session.prePath;
+	easyimg.crop(
+	    {
+	        src:photo, dst:photo,
+	        cropwidth:area.w, cropheight:area.h,
+	        gravity:'NorthWest',
+	        x:area.x, y:area.y
+	    },
+	    function(err, stdout, stderr) {
+	        if (!err) {
+	        	easyimg.resize(
+		        	{
+		        		src:photo, 
+		        		dst:photo, 
+		        		width:290, 
+		        		height:291
+		        	}, 
+		    		function(err, stdout, stderr) {
+					    if (!err) {
+					    	Profiles.findOne({userid: req.session.uid}, function (err, profile) {
+					    		if (!err) {
+					    			profile.photo = '/upload/' + req.session.prephoto;
+					    			profile.save(function (err, profile) {
+					    				if(!err) {
+					    					res.send({error: null, path: profile.photo});
+					    				} else {
+										   	res.send({error: "save error", path: null});
+										}
+								    })
+					    		} else {
+							    	res.send({error: "profile find error", path: null});
+							    }
+					    	});
+					    } else {
+					    	res.send({error: "resize error", path: null});
+					    }
+					}
+				);
+	        } else {
+	        	res.send({error: "crop error", path: null});
+	        }
+	    }
+	);
+};
+
+// Интерфейс редактирования полей профиля
+exports.profEdit = function (req, res) {
+	var data = req.body;
+	console.log(data);
+	// Проверяем, пришли-ли какие-либо данные
+	if (data) {
+		var Users = app.get('models').users;
+		// Ищем профиль авторизованного пользователя
+		Users.findOne({ _id: req.session.uid  }, function (err, user) {
+			if (err || !user) {
+				// если ошибка при поиске профиля или профиль не найден, сообщаем об ошибке
+				res.send('error');
+			} else {
+				// иначе изменяем профиль:
+				var ch = {
+/*					family: data.profFamily ? (user.family = data.profFamily) : false,
+					name: data.profName ? (user.name = data.profName) : false,
+					faname: data.profFaname ? (user.faname = data.profFaname) : false,*/
+					/*work: data.profWork ? (user.work = data.profWork) : null,*/
+					email: data.profEmail ? (user.newmail = data.profEmail) : null,
+					password: data.profnewPass ? (user.newpass = data.profnewPass): null,
+					phone: data.profPhone ? (user.phone = data.profPhone) : null,
+					adress: data.profAdress ? (user.adress = data.profAdress) : null,
+					edu: data.profEdu ? (user.edu = data.profEdu) : null,
+					addedu: data.profAddedu ? (user.addedu = data.profAddedu) : null,
+					gender: data.profGender ? (user.gender = data.profGender) : null,
+/*					age: data.profAge ? (user.age = data.profAge) : null,
+					eduname: data.profEduname ? (user.eduname = data.profEduname) : null,*/
+					interest: data.profInterest ? (user.interest = data.profInterest) : null,
+					prof: data.profProf ? (user.prof = data.profProf) : null,
+					showtype: data.profShowtype ? (user.showtype = data.profShowtype) : null,
+					showtheme: data.profShowtheme ? (user.showtheme = data.profShowtheme) : null,
+					lastemail: user.email
+				}
+
+				//Если изменен пароль или емайл
+				if (ch.email!=user.email || ch.password) {
+					//Сгенерируем и сохраним код для юзера
+					user.newemail = ch.email;
+					user.newpass = ch.password;
+					user.saveeditcode = helpers.generateUUID();
+					user.save(function (err, newUser, numberAffected) {
+						// Если пользователь сохранен, то продолжаем генерацию письма, иначе возвращаем ошибку.
+						if (!err) {
+							console.log("Пользователь сохранен, продолжаем генерить письмо");
+							var mailer = email.server.connect(mailaccount);		
+							mailer.send({
+								text: "Чтобы изменения вступили в силу, перейдите по следующей ссылке: http://" + req.get('host') + "/profile/saveempass?code=" + user.saveeditcode + " !",
+			        			from:    "Media Experts <mediaexpertmail@gmail.com>", 
+						   		to:      user.family + " " + user.name + " <" + user.newmail ? user.newmail : user.mail + ">",
+						   		subject: "Media Experts invite code confirmation",
+						   		data: " asd "
+							}, function(err, message) {
+								if (err) {
+									console.log("Письмо мы не отправили, к сожалению");
+									console.log(err);
+								} else {
+									console.log("Письмо мы, однако, отправили, к счастью");
+								}
+							});				
+						} else {
+							console.log("Ошибка сохранения пользователя (rest.saveeditprofile");
+							console.log(err);
+							callback(err, null);
+						}
+					});
+				}
+				user.save(function (err, saveProf, rowAff) {
+					res.send({error: err, ch: ch, user: user});
+				});	
+			}
+		});
+	} else {
+		res.send({error: 'empty data'});
+	}
+
+}
+<<<<<<< .mine
+
+//Сохранение логина и пароля, после перехода по ссылке
+exports.saveempass = function (req, res) {
+	//Получаем код
+	var code = req.query.code;
+	console.log(code + " [saveempass]" );
+	var user = app.get('models').users;
+	//Ищем юзера с таким кодом в поле saveeditcode
+	user.findOne({saveeditcode: code}, function (err, user) {
+		if (user) {
+			if (req.session.authorized) {
+				console.log(req.session.userid === user.userid);
+				if (req.session.userid === user.userid) {
+					console.log("Начинаем сохранение");
+					user.pass = user.newpass ? user.newpass : user.pass;
+					user.email = user.newemail ? user.newemail : user.email;
+					user.userid = user.newemail ? user.newemail : user.email;
+					console.log(user.pass + " " + user.email);
+					user.newpass = null;
+					user.newemail = null;
+					user.saveeditcode = null;
+					//Сохраняем пользователя совсем
+					user.save(function (err, saveUser, rowAff) {
+						if (!err) {
+							console.log("Пользователь сохранен");
+							req.session.inf = "Данные изменены.";
+							res.redirect('/empasschanged');
+						} else {
+							console.log("Пользователь не сохранен");
+							console.log(err)
+							res.redirect("/");
+						}
+					});
+				} else {
+					console.log(req.session.uid ,"==", user._id);
+					res.redirect("/");
+					console.log("Один пользователь пытается использовать код другого");
+				}
+			} else {
+				req.session.inf = "Вы не авторизованы. Авторизуйтесь и попробуйте пройти по ссылке снова.";
+				res.redirect("/empasschanged");
+			}
+		} else {
+			console.log("Пользователь с таким кодом не найден.");
+			res.redirect("/");
+		}
+	});
+}
+
+// Отправка ответа (обратная связь)
+exports.sendAnswer = function(req, res) {
+	var answer = req.body;
+	var error = "";
+	if (answer) console.log(answer);
+
+	//Генерация письма
+	fs.readFile(__dirname + '/../views/mailtempl/feedbackAnswer.ejs', 'utf8', function(err, data) {
+		// Если без ошибок
+		if(!err) {
+			// Генерим тест письма
+			var mailtext = ejs.render(data, {
+				name: answer.name,
+				msg: answer.msg
+			});
+
+			var mailer  = email.server.connect(mailaccount);
+			mailer.send({
+				text: "Вам ответ от Media Expert",
+				from:    "Media Experts <mediaexpertmail@gmail.com>", 
+				to:      answer.email,
+				subject: "Ответ от Media Expert",
+				attachment: 
+					[
+						{data: mailtext, alternative:true}
+					]
+			});	
+		} else {
+			error = "Ошибка чтение файла письма";
+		}
+	res.send({error: error});
+	});			
+}=======
+>>>>>>> .r330

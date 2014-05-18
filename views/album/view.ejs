@@ -1,0 +1,153 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+<div class="special_div" value="13"></div>
+<div class="view-album-window-button" for="<%= alb._id %>"></div>
+
+<!-- Загружаем в hidden'i пути к файлам -->
+	<% 
+	i = 0;
+	alb.photos.forEach( function (ph) {
+		if (alb.user=='activity') {
+			ph = ph.split('/');
+			ph[2] = 'prev' + ph[2];
+			ph = ph.join('/');
+		}
+	%>
+		<input type="hidden" class="src-of-num-<%= i %>" value="<%= ph %>">
+	<%
+		i = i + 1;
+	});
+	%>
+		<input type="hidden" class="photo-now" value="" all="<%= alb.photos.length %>">
+		<%
+			
+		%>
+
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/photo-fone.png" class="photo-name" >
+			</div>
+		</div>
+
+		<div class="to-pages-buttons">
+			<% if (!alb.user=='activity') { %> }
+				<a href="/album?user=<%= alb.user %>"><div class="to-album-list-button">Альбомы</div></a>
+				<% if (user.uid==alb.user) { %>
+					<a href="/profile"><div class="to-profile-button">Профиль</div></a>
+				<% } else { %>
+					<a href="/profileview?id=<%= alb.user %>"><div class="to-profile-button">Профиль</div></a>
+				<% } %>
+			<% } %>
+
+			<% if (alb.user=='activity') { %>
+				<a href="/activity/id/<%= alb._id %>"><div class="to-profile-button" style='margin-left: 0px;width: 200px;'>К мероприятию</div></a>
+			<% } %>
+
+			<% if (alb.user=='event') { %>
+				<a href='/event/<%= alb._id %>'><div class='to-profile-button' style='margin-left: 0px; width: 200px;'>К событию</div></a>
+			<% } %>
+		</div>
+
+		<!-- Фотоальбом -->
+		<div class="album-centr-position">
+			<div class="album-view-window-blank">
+
+					<div class="album-view-window-hblank">
+						<div class="album-view-window-image">
+						</div>
+						<div class="album-view-window-text">
+							<% if (((user.uid == alb.user)||user.role=='admin')&&alb.user!=='activity' ) { %> 
+								<div class='edit-name-of-album' title="Изменить название">
+								</div>
+								<div class='save-edit-name' title="Сохранить название">
+								</div>
+								<div class='progress-save-edit-name'></div>
+								<div class='ok-of-save-edit-name'></div>
+								<input type='text' class='input-for-edit-name-of-album' value='<%= alb.name %>'>
+							<% } %>
+
+							<div class="stext">
+								<%= alb.name %>
+							</div>
+						</div>
+						<div class="progress-load"></div>
+						<% if (alb.user == user.uid) { %>
+							<div class="album-add-photo-bl">
+								Добавить фотографию
+								<form action="/album/photoUpload" method="POST" enctype='multipart/form-data' id="form-photoUpload">
+									<input type="file" class="photo-in-album-input-bl" name="file" accept="image/jpeg,image/png,image/gif">
+									<input type="hidden" name="user_id" value="<%= alb.user %>">
+									<input type="hidden" name="album" value="<%= alb._id %>">
+								</form>
+							</div>
+						<% } %>
+					</div>
+					<div class="album-view-window-photos-blank">
+						<%
+							i = 1;
+							alb.photos.forEach( function (ph) {
+								dopClass = '';
+								if ((i%5)==0) {dopClass="right-img-album"}
+								i = i+1;
+							%>
+								<img src="<%= ph %>" class="album-window-img-blank numPhoto_<%= (i-2) %>" num="<%= (i-2) %>">
+							<%
+							});
+						%>
+						<label class="place-for-add-photo"></label>
+					</div>
+			</div>
+		</div>
+
+		<!-- Всплывающее окно просмотра фотографии вблизи -->
+		<div class='photo-watch-centr'>
+			<div class='photo-watch  <%= (alb.user=="activity"||alb.user=='event' ? "activity-photography" : "") %>'>
+				<div class="close-photo-watch">
+				</div>
+				<div class="head-photo-container">
+					<%- alb.user=="activity"||alb.user=='event' ? '' : '<input class="photo-watch-name" value="" readonly>' %>
+					<div class="photo-watch-data">
+					</div>
+				</div>
+				<div class="photo-container">
+				</div>
+				<div class="photo-watch-slider">
+					<div class="before-photo"> </div>
+					<div class="count-info">
+					<span class="index-of-photo-now">null</span>/<span class="photoCount"><%= alb.photos.length %></span></div>
+					<div class="next-photo"> </div>
+				</div>
+					<% if (alb.user!='activity'&&alb.user!='event') { %>
+					<div class="photo-settings">
+						<textarea class="photo-description" readonly></textarea>
+						<% if ((alb.user == user.uid)||user.role=='admin') { %>
+							<div class="delete-this-photo">
+								Удалить
+							</div>
+							<div class="edit-this-photo">
+								Изменить
+							</div>
+							<div class="save-this-photo">
+								Сохранить
+								<div class="info-about-save">Сохранено</div>
+							</div>
+						<% } %>
+					</div>
+					<% } %>
+			</div>
+		</div>
+	<div class="whiteout"></div>
+	</div>
+
+	<% include ../common/footer %>
+
+
+	
+</body>
+</html>
+
+

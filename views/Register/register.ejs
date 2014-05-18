@@ -1,0 +1,105 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+
+		<div class="logo-fon">
+			<div class="logo_wrap">
+				<img src="img/register.png" class="registr_me">
+			</div>
+		</div>
+		<div class="register-form-wrap">
+			<div class="register-form">
+				<p class="text-input-name">Фамилия</p>
+				<input type="text" maxlength="100" class="text-input-reg">
+				<p class="text-input-name">Имя</p>
+				<img src="img/zvezda.png" class="input_write-reg">
+				<input type="text" maxlength="100" class="text-input-reg">
+				<p class="text-input-name">Отчество</p>
+				<img src="img/zvezda.png" class="input_write-reg">
+				<input type="text" maxlength="100" class="text-input-reg">
+				<p class="text-input-name">Выберите пол</p>
+				<div class="edit-inform-reg">
+					<img src="img/zvezda.png" class="input_write-reg">
+					<img src="img/edit.png" class="dropdown-btn-reg">
+							<input class="category" type="checkbox" id="check"><label for="check"><span></span>Женский</label><br>
+							<input class="category" type="checkbox" id="check1"><label for="check1"><span></span>Мужской</label>
+				</div>
+				<p class="text-input-name">Ваш возраст</p>
+				<input type="text" maxlength="2" class="text-input-reg" placeholder="Ваш возраст">
+				<p class="text-input-name">Образование</p>
+				<div class="edit-inform-reg">
+					<img src="img/edit.png" class="dropdown-btn-reg">
+					<ul class="title hide">
+						<li><a href="#">Среднее</a></li>
+						<li><a href="#">Среднее-специальное</a></li>
+						<li><a href="#">Высшее</a></li>
+					</ul>
+				</div>
+				<div class="padding"></div>
+				<input type="text" maxlength="100" class="text-input-reg" placeholder="ВУЗ">
+				<div class="padding"></div>
+				<textarea class="textarea-reg" maxlength="150" placeholder="Дополнительное образование (курсы)"></textarea>
+				<p class="text-input-name">Адрес места жительства</p>
+				<input type="text" maxlength="100" class="text-input-reg" placeholder="Область/Край">
+				<div class="padding"></div>
+				<input type="text" maxlength="100" class="text-input-reg" placeholder="Город">
+				<div class="padding"></div>
+				<input type="text" maxlength="100" class="text-input-reg" placeholder="Адрес">
+				<p class="text-input-name">Интересы</p>
+				<div class="edit-inform-reg">
+					<img src="img/edit.png" class="dropdown-btn-reg">
+					<ul class="title hide">
+						<li><a href="#">Фото</a></li>
+						<li><a href="#">Музыка</a></li>    
+				</div>
+				<p class="text-input-name">Профессиональная область</p>
+				<div class="edit-inform-reg">
+					<img src="img/edit.png" class="dropdown-btn-reg">
+					<ul class="title hide">
+						<li><a href="#">Врач</a></li>
+						<li><a href="#">Педагог</a></li>
+						<li><a href="#">Юрист</a></li>
+					</ul>
+				</div>
+				<p class="text-input-name">Типы передач, в которых хотели бы учавствовать</p>
+				<div class="edit-inform-reg ">
+					<img src="img/edit.png" class="dropdown-btn-reg">
+					<ul class="title hide">
+						<li><a href="#">Семейное шоу</a></li>
+						<li><a href="#">Ситком</a></li>
+						<li><a href="#">Комедийное шоу</a></li>
+					</ul>
+				</div>
+				<div class="line-down2"></div>
+				<div class="search_button">
+					<input type="submit" class="search-cancel-reg" value="Отмена">
+					<input type="submit" class="search-ok-reg" value="Сохранить">
+				</div>
+			</div>
+		</div>
+	<div class="footer">
+			<div class="menu_footer">
+				<div class="project">
+					<div class="project-item">О проекте</div>
+					<span class="text_project">Lorem ipsum dolor sit amet,<br> consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut <br>labore et dolore magna aliqua. <br>Ut enim ad minim veniam</span>
+				</div>
+				<div class="contact">
+					<div class="contact_item">Контакты</div>
+					<span class="text_contact">m.expert@gmail.ru<br>
+					Тел. +7 (925) 772-33-04</span>
+				</div>
+				<div class="fiedback">
+					<div class="fiedback_item">Обратная связь</div>
+					<img class="mail" src="img/mail.png">
+				</div>
+			</div>
+		</div>
+<!-- Блок Футера -->
+		<% include ../common/footer %>
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+
+		<div class="logo-fon">
+			<div class="logo_wrap">
+				<img src="/img/register.png" class="registr_me">
+			</div>
+		</div>
+		<div class="register-form-wrap">
+			<div class="register-form"><form id="reister" action="/invite/register" method="POST">
+				<p class="text-input-name">Загрузите фотографию в свой профиль</p>
+				<input type="file" name="f">
+				<p class="text-input-name">Фамилия</p>
+				<input type="text" maxlength="100" class="text-input-reg" name="registerMail" id="registerMail" value="<%- val.email || val.registerMail %>">
+				<p class="text-input-name">Имя</p>
+				<img src="/img/zvezda.png" class="input_write-reg">
+				<input type="text" maxlength="100" class="text-input-reg" name="registerPass" id="registerPass">
+				<p class="text-input-name">Отчество</p>
+				<input type="text" maxlength="100" class="text-input-reg" name="registerRepass" id="registerRepass">
+				<p class="text-input-name">Выберите пол</p>
+				<div class="edit-inform-reg">
+					<img src="/img/zvezda.png" class="input_write-reg">
+					<img src="/img/edit.png" class="dropdown-btn-reg">
+					<span class="name-inform-reg"></span>
+					<div class="title-reg hide">
+							<input class="category" type="radio" id="registerGenderMale" name="registerGender" value="1"><label for="registerGenderMale"><span></span>Женский</label><br>
+							<input class="category" type="radio" id="registerGenderFemale" name="registerGender" value="2"><label for="registerGenderFemale"><span></span>Мужской</label>
+					</div>
+				</div>
+				<p class="text-input-name">Дата рождения</p>
+				<input type="text" maxlength="10" onkeyup = 'this.value=parseInt(this.value) | ' class="text-input-reg" id="registerAge" name="registerAge"  placeholder="10.12.1987">
+				<p class="text-input-name">Образование</p>
+				<div class="edit-inform-reg">
+					<img src="/img/edit.png" class="dropdown-btn-reg">
+					<span class="name-inform-reg"></span>
+					<div class="title-reg hide">
+						<input class="category" type="radio" id="registerEduM" name="registerEdu" value="m"><label for="registerEduM"><span></span>Среднее</label><br>
+						<input class="category" type="radio" id="registerEduS" name="registerEdu" value="s"><label for="registerEduS"><span></span>Среднее-специальное</label><br>
+						<input class="category" type="radio" id="registerEduH" name="registerEdu" value="h"><label for="registerEduH"><span></span>Высшее</label>
+					</div>
+				</div>
+				<div class="padding"></div>
+				<input type="text" maxlength="100" class="text-input-reg" id="registerInst" name="registerInst"   placeholder="ВУЗ">
+				<div class="padding"></div>
+				<textarea class="textarea-reg" maxlength="150" id="registerAddEdu" name="registerAddEdu"   placeholder="Дополнительное образование (курсы)"></textarea>
+				<p class="text-input-name">Адрес места жительства</p>
+				<input type="text" maxlength="100" class="text-input-reg" id="registerRegion" name="registerRegion" placeholder="Область/Край">
+				<div class="padding"></div>
+				<input type="text" maxlength="100" class="text-input-reg" id="registerCity" name="registerCity" placeholder="Город">
+				<div class="padding"></div>
+				<input type="text" maxlength="100" class="text-input-reg" id="registerAdress" name="registerAdress" placeholder="Адрес">
+				<p class="text-input-name">Интересы</p>
+				<div class="edit-inform-reg">
+					<img src="/img/edit.png" class="dropdown-btn-reg">
+					<span class="name-inform-reg"></span>
+					<div class="title-reg hide">
+					<% dicts.dictInerests.forEach(function(item){ %>
+						<input class="category" type="checkbox" id="registerInterest[<%= item.code %>]" name="registerInterest[<%= item.code %>]"><label for="registerInterest[<%= item.code %>]"><span></span><%= item.title %></label><br>
+					<% }) %>
+					</div>   
+				</div>
+				<p class="text-input-name">Профессиональная область</p>
+				<div class="edit-inform-reg">
+					<img src="/img/edit.png" class="dropdown-btn-reg">
+					<span class="name-inform-reg"></span> 
+					<div class="title-reg hide">
+					<% dicts.dictProfs.forEach(function(item){ %>
+						<input class="category" type="checkbox" id="registerProf[<%= item.code %>]" name="registerProf[<%= item.code %>]"><label for="registerProf[<%= item.code %>]"><span></span><%= item.title %></label><br>
+					<% }) %>
+					</div>
+				</div>
+				<p class="text-input-name">Типы передач, в которых хотели бы участвовать</p>
+				<div class="edit-inform-reg ">
+					<img src="/img/edit.png" class="dropdown-btn-reg">
+					<span class="name-inform-reg"></span>
+					<div class="title-reg hide">
+					<% dicts.dictShowtypes.forEach(function(item){ %>
+						<input class="category" type="checkbox" id="registerShow[<%= item.code %>]" name="registerShow[<%= item.code %>]"><label for="registerShow[<%= item.code %>]"><span></span><%= item.title %></label><br>
+					<% }) %>
+					</div>
+				</div>
+				<div class="line-down2"></div>
+				<div class="search_button">
+					<input type="hidden" name="registerCode" id="registerCode" value="<%- val.code %>">
+					<input type="submit" class="search-cancel-reg" value="Отмена">
+					<input type="submit" class="search-ok-reg" value="Сохранить">
+				</div>
+			</form></div>
+		</div>
+	
+<!-- Блок Футера -->
+		<% include ../common/footer %>
+</body>
+</html>

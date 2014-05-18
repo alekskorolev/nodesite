@@ -1,0 +1,139 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+		<div class="logo-fon">
+			<div class="logo_wrap">
+				<img src="/img/invite-help.png" class="invite_me">
+			</div>
+		</div>
+
+		<div class="invite_form-wrap">
+			<div class="invite_form"><form name="invite_form" id="invite_form" action="/invite" method="POST" enctype="multipart/form-data" >
+				<img src="/img/zvezda.png" class="input_write">
+
+				<input type="text" maxlength="100" class="text-input" placeholder="Фамилия"  name="family" id="fam"  value="<%- val.family %>">
+					<% if (err && err.family ) { %> 
+						<div class="error-image error-true">
+							<%= err.family.message %>
+						</div>
+					<% } %>
+				<img src="/img/zvezda.png" class="input_write">
+				<input type="text" maxlength="100" class="text-input_name" placeholder="Имя"  name="name" id="name"  value="<%- val.name %>">
+
+				<input type="text" maxlength="100" class="text-input_namefather" placeholder="Отчество"  name="faname" id="fname"  value="<%- val.faname %>">
+					<% if (err && (err.name ||  err.faname)) { %> 
+						<div class="error-image error-true">
+							<%= err.name ? err.name.message : err.faname.message %>
+						</div>
+					<% } %>
+				<img src="/img/zvezda.png" class="input_write">
+				<input type="text" class="text-input" placeholder="Место работы"  name="work" id="work"  value='<%- val.work %>'>
+					<% if (err && err.work ) { %> 
+						<div class="error-image error-true">
+							<%= err.work.message %>
+						</div>
+					<% } %>
+				<img src="/img/zvezda.png" class="input_write">
+				<input type="text" maxlength="100" class="text-input" placeholder="Email"  name="email" id="email"  value="<%- val.email %>">
+					<% if (err && err.email ) { %> 
+						<div class="error-image error-true">
+							<%= err.email.message %>
+						</div>
+					<% } %>
+				<img src="/img/zvezda.png" class="input_write_textarea">
+				<textarea maxlength="250" placeholder="Зачем Вам нужен Media Expert?"  name="why" id="why"><%- val.why %></textarea>
+					<% if (err && err.why ) { %> 
+						<div class="error-image error-image-last error-true">
+							<%= err.why.message %>
+						</div>
+					<% } %>
+
+					<div class="im_button">
+						<img src="/img/zvezda.png" class="input_write_load">
+				        <span class="upload">Загрузите видео-ролик с вашим участием до 100 Мб в формате mp4:</span>
+				        <div class="upload-button">
+				        <% if(user && user.videofile) { %>
+				        	Заменить
+				        <% } else { %>
+				        	Загрузить
+				        <% } %>
+				        </div>
+				        <input type="file" class="submit-upload" form='invite_form' name="file" id="file" accept="video/*">
+				    <% if (err && err.file ) { %> 
+						<div class="error-image error-File error-true">
+							<%= err.file.message %>
+						</div>
+					<% } %>
+
+					<% var movVal = false; %>
+					<% if (user && user.videofile) {
+						var movVal = true;
+					} %>
+						<input type="hidden" value="<%= movVal %>" class="movieOk" name="movieOk" form="invite_form">
+
+    				</div>
+    				<% if(user && user.videofile) { %>
+    					<div id="video-element">
+    						<input form='invite_form' type="text" class="input-time" name="filetime" id="filetime" placeholder="Напишите тот отрезок времени в видео, где присутствуете именно Вы" value="<%= val.filetime %>">
+    						<!-- <img src="/upload/<%= user.videofile %>.jpg"  width="640" height="360" /> -->
+    						<video controls poster="/upload/<%= user.videofile %>.jpg"   width="640" height="360" name="media"><source src="/upload/<%= user.videofile %>" type="video/mp4"></video>
+    					</div>
+    				<% } else { %>
+    					<div id="video-element"></div>
+    				<% } %>
+					<%
+					if (err && err.movieOk ) {
+					%>
+						<div class="error-image error-true">
+							<%= err.movieOk.message %>
+						</div>
+					<%	
+					}
+					%>
+    				<%
+    				 if (urls) { %>
+    					<% urls.forEach(function(url){ 
+    						console.log(url);
+    						%>
+	    					<input type="text" class="input-time urltime" placeholder="Напишите тот отрезок времени в видео, где присутствуете именно Вы" form="invite_form" name='justTimeline' value="<%= url.timeline %>">
+	    					<input type="text" form="invite_form" name="justUrl" class="input-href urlurl" placeholder="А также можете добавить ссылку на ресурс с вашим видео" value="<%= url.url %>">
+	    					<input type="hidden" name="url" id="url[]" class="urlval" value='{ "timeline": "<%= url.timeline %>", "url": "<%= url.url %>" }'>
+    					<% }) %>
+    				<% } else { %>
+	    				<input type="text" class="input-time urltime" placeholder="Напишите тот отрезок времени в видео, где присутствуете именно Вы" form="invite_form" value="" name='justTimeline'>
+	    					<input type="text" name="justUrl" form="invite_form" class="input-href urlurl" placeholder="А также можете добавить ссылку на ресурс с вашим видео" value="">
+	    					<input type="hidden" name="url" id="url[]" class="urlval" value="">
+    				<% } %>
+					<div class="im_button">
+						<div class="addurl-button">Добавить поля</div>
+    				</div>
+    				<!-- Если вернулись на страницу с ошибкой, отображаем ранее приложенный файл -->
+
+				<div class="hint">
+					<img src="/img/ministar.png" class="for_input">
+					<span class="zvezda">Поля,обязательные для заполнения</span>
+				</div>
+				<div class="btn-submit">
+					<div class="invite_submit">Зарегистрироваться</div>
+				</div>
+			</form
+		</div>
+	</div>
+
+	
+</div><!-- Блок Футера -->
+		<% include ../common/footer %>
+ <script type="text/javascript">
+	$(document).ready(function () {
+		$(window).scrollTop(230);
+		$('input#inviteFam').focus();
+	});
+  </script>
+</body>
+</html>
+
+
+

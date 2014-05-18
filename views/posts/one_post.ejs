@@ -1,0 +1,14 @@
+<div class='one-comment'>
+	<div class='comment-created-date'>
+		<%= post.date %> <%= post.time %>
+	</div>
+	<div class='comment-content'>
+		<%= post.content %>
+	</div>
+	<div class='comment-avatar'>
+		<img src='<%= user.photo %>'>
+		<div class='comment-author'>
+			<%= user.name %> <%= user.family %>
+		</div>
+	</div>
+</div>

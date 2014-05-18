@@ -1,0 +1,34 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+
+		<div class="logo-fon">
+			<div class="logo_wrap">
+			</div>
+		</div>
+		<div class="notice-wrap">
+			<div class="notice">
+			<form action="/rest/sendNegativeMessage" method="POST" id="sendNMForm">
+				<span class="notice-mesage">
+					Страница отправки отказа по инвайту (<a href="/admin/invite?invId=<%= invite._id %>">просмотр инвайта</a>):<br>
+					<input type="hidden" name="id" value="<%= invite._id %>"><br>
+					Сообщение:<br> <textarea name=msg></textarea><br>
+					<div class="btn-save sendNegativeMessageSubmit">
+						<span>Отправить</span>
+					</div>
+				</span>
+			</form>
+			</div>
+		</div>
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+		</div>
+
+</body>
+</html>
+
+
+		

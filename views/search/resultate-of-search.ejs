@@ -1,0 +1,275 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+		<% include ../common/topmenu %>
+			<div class="logo-fon">
+				<div class="logo_wrap_other">
+					<img src="/img/serach-expert.png" class="search_me">
+				</div>
+			</div>
+		<div class="search-result-wrap">
+			<a href="/search?advanced=1">Расширенный поиск</a><br><br>
+
+			<%= !results.count ? "По введенным параметрам поиск не дал результатов" : "" %><BR>
+
+		<!-- Отрисовка данных из присланного массива пользователей -->
+		<%
+			var sex = "";
+			var age = "Не указан";
+			results.forEach (function (e, i) {
+				age = "Не указан";	
+				sex = "Не указан";
+				if (e.gender==='man') sex = "Мужской";
+				if (e.gender==='woman') sex = "Женский";
+				var DateBirthDay = new Date(e.bday);
+				var DateNow = new Date();
+				age = (Math.floor((DateNow.getTime() - DateBirthDay.getTime())/31536000000));
+				if (age == 0) age = "Не указан";
+
+		%>
+			<div class="result">
+							 <% if (e.role=='delete') { %> <font style='font-size: 13px; color: silver'>Пользователь удален и виден только администратору</font> <% } %>
+							<div class="ava-wrap">
+								<img src="<%= e.photo || "/img/profil-foto.png" %>" class="ava-photo">
+							</div>
+							<div class="person-wrap">
+								<div class="name-person">
+									<span class="name-item">
+										<a href="/profileview?id=<%= e._id %>"><%= e.name %> <%= e.faname %> <%= e.family %></a>
+									</span>
+									<div class="reit-stars">
+									<%
+									var vs = 5;
+									for (var i=0;i<e.rating; i=i+1) {
+										vs = vs - 1;
+									%>
+										<img src="/img/mini-star.png">
+									<%
+									}	
+									if (vs>0) {
+										for (var i=0; i<vs;i=i+1) {
+									%>
+											<img src="/img/mini-star2.png">
+									<%
+										}
+									} 
+									%>
+										
+									</div>
+								</div>
+								<div class="underline"></div>
+								<div class="person-info">
+									<div class="person-job">
+										<%= e.work %>
+									</div>
+									<div class="person-data">
+										<span>
+											Пол: <%= sex %>
+										</span><br>
+										<span>
+											Возраст: <a href="#" class="href"><%= age %></a>
+										</span><br>
+										<span>
+											Место жительства: 
+											<a href="#" class="href"><%= e.adress ? e.adress : "Не указано" %></a>
+										</span>
+									</div>
+								</div>
+								<div class="underline2"></div>
+								<div class="person-type">
+									<span class="person-programm">
+										Типы передач, в которых участвовали: 
+										<%
+											zpt = "";
+											e.showtype.forEach( function (e) {
+											%>
+												<%= zpt %><%= e %>
+											<%
+												zpt ="| ";
+											})
+										%>
+									</span>
+								</div>
+
+								<!-- <div class="person-type">
+									<span class="person-programm">
+										Темы передач: 
+										<%
+											zpt = "";
+											e.showtheme.forEach( function (e) {
+											%>
+												<%= zpt %><%= e %>
+											<%
+												zpt ="| ";
+											})
+										%>
+									</span>
+								</div>
+
+								<div class="person-type">
+									<span class="person-programm">
+										Интересы: 
+										<%
+											zpt = "";
+											e.interest.forEach( function (e) {
+											%>
+												<%= zpt %><%= e %>
+											<%
+												zpt ="| ";
+											})
+										%>
+									</span>
+								</div>
+
+								<div class="person-type">
+									<span class="person-programm">
+										Профессиональная деятельность: 
+										<%
+											zpt = "";
+											e.interest.forEach( function (e) {
+											%>
+												<%= zpt %><%= e %>
+											<%
+												zpt ="| ";
+											})
+										%>
+									</span>
+								</div> -->
+
+							</div>
+						</div>
+		<%
+			});
+		%>
+		<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa- -->
+
+			<!-- <div class="result">
+				<div class="ava-wrap photo2"></div>
+				<div class="person-wrap">
+					<div class="name-person">
+						<span class="name-item">Иванов Иван Иванович</span>
+						<div class="reit-stars">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star2.png">
+						</div>
+					</div>
+					<div class="underline"></div>
+					<div class="person-info">
+						<div class="person-job">Специалист по информационной безопасности</div>
+						<div class="person-data">
+							<span>Пол: <a href="#" class="href">Мужской</a></span><br>
+							<span>Возраст: <a href="#" class="href">51 год.</a></span><br>
+							<span><a href="#" class="href">г.Москва</a></span>
+						</div>
+					</div>
+					<div class="underline2"></div>
+					<div class="person-type">
+						<span class="person-programm">Типы передач, в которых участвовали: <a href="#" class="prog">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></span>
+					</div>
+				</div>
+			</div>
+			<div class="result">
+				<div class="ava-wrap photo3"></div>
+				<div class="person-wrap">
+					<div class="name-person">
+						<span class="name-item">Петров Алексей Андреевич</span>
+						<div class="reit-stars">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star2.png">
+						</div>
+					</div>
+					<div class="underline"></div>
+					<div class="person-info">
+						<div class="person-job">Специалист по информационной безопасности</div>
+						<div class="person-data">
+							<span>Пол: <a href="#" class="href">Мужской</a></span><br>
+							<span>Возраст: <a href="#" class="href">35 лет</a></span><br>
+							<span><a href="#" class="href">г.Димитров</a></span>
+						</div>
+					</div>
+					<div class="underline2"></div>
+					<div class="person-type">
+						<span class="person-programm">Типы передач, в которых участвовали: <a href="#" class="prog">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></span>
+					</div>
+				</div>
+			</div>
+			<div class="result">
+				<div class="ava-wrap photo4"></div>
+				<div class="person-wrap">
+					<div class="name-person">
+						<span class="name-item">Сергеева Юлия Васильевна</span>
+						<div class="reit-stars">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star.png">
+							<img src="/img/mini-star2.png">
+						</div>
+					</div>
+					<div class="underline"></div>
+					<div class="person-info">
+						<div class="person-job">Специалист по информационной безопасности</div>
+						<div class="person-data">
+							<span>Пол: <a href="#" class="href">Женский</a></span><br>
+							<span>Возраст: <a href="#" class="href">22 года</a></span><br>
+							<span><a href="#" class="href">г.Москва</a></span>
+						</div>
+					</div>
+					<div class="underline2"></div>
+					<div class="person-type">
+						<span class="person-programm">Типы передач, в которых участвовали: <a href="#" class="prog">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></span>
+					</div>
+				</div>
+			</div>
+-->
+			<% if (results.pages>1) { %>
+				<div class="flipping-pages">
+					<div class="turn">
+						<% begn = (results.pageindex-1)-2; %>
+						<% if (begn<0) begn = 0; %>
+						<% fn = ( ( (begn + 5) < results.pages )? ( begn + 5 ) : (results.pages) ); %>
+
+						<% if (results.pageindex>1) { %>
+							<a href='#' class='page' id='<%= results.pageindex-1 %>'>
+								<div class="turn-left">
+									<img src="/img/search-arrow.png">
+								</div>
+							</a>
+						<% } %>
+						<div class="pages">
+						<%
+							for (var i=begn; i < fn; i=i+1) {
+								st = "";
+								if ((results.pageindex-1)==i) st = "style='color:#E07450'";
+						%>
+								<a href='#' class="page" id="<%= i+1 %>" <%= st %>><%= i+1 %></a>
+						<%
+							}
+						%>
+						</div>
+						<% if (results.pageindex<results.pages) { %>
+						<a href='#' class='page' id='<%= parseInt(results.pageindex)+1 %>'>
+						<div class="turn-right">
+							<img src="/img/search-arrow-right.png">
+						</div>
+						</a>
+						<% } %>
+					</div>
+				</div>
+			<% } %>
+			<div class="button-wrap">
+				<div class="btn-back">Назад</div>
+			</div>
+		</div>
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+	</div>
+</body>
+</html>

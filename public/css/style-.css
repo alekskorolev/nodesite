@@ -1,0 +1,519 @@
+/*стиль главной страницы*/
+
+@font-face{
+	font-family: "ProximaNova-Bold"
+	src: url(fonts/ProximaNova-Bold.otf);
+}
+body, html{
+	padding:0;
+	margin:0;
+}
+a.link{
+	 text-decoration: none;
+	 color:#fff;
+}
+.container{
+	width:100%;
+}
+.logmenu_wrap{
+	width:100%;
+	height: 88px;
+}
+.logmenu{
+	margin: 0 auto;
+	width: 1024px;
+	line-height: 88px;
+	color:#e07450;
+}
+.logmenu_logo{
+	height: 88px;
+	width: 314px;
+	float: left;
+	font-size:41px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+.logmenu_btns{
+	width: 238px;
+	height: 86px;
+	float:right;
+}
+.logmenu_btn{
+	display: inline-block;
+	text-align: center;
+	padding-right: 20px;
+	cursor: pointer;
+}
+.fonlog{
+	width:100%;
+	height: 660px;
+	background: url("../img/font-image.png") center center;
+	margin-bottom: -88px;
+}
+.log_wrap{
+	width: 1024px;
+	padding-top:170px;
+	margin: 0 auto;
+}
+.log{
+height: 286px;
+line-height: 286px;
+width: 947px;
+text-align: center;
+background: #e07450;
+margin: 0 auto;
+color:#fff;
+font-size: 78px;
+text-transform: uppercase;
+}
+.downmenu_wrap{
+	width: 100%;
+	height:88px;
+	background-color:#000;
+	opacity:0.8;
+}
+.downmenu{
+	margin:0 auto;
+	width: 1024px;
+	line-height: 88px;
+	color:#fff;
+	font-family: "Segoe UI Semilight";
+	font-size: 25px;
+}
+.link{
+	margin-right: 170px;
+}
+.link:last-child{
+	margin-right:0;
+	margin-left:101px;
+}
+
+.slide_wrap{
+	width:100%;
+	height:341px;
+}
+.slide-avatar{
+	margin: 0 auto;
+	width: 1024px;
+	height:341px;
+	overflow: hidden;
+}
+.btn_left{
+	float:left;
+	margin-top: 160px;	
+}
+.btn_right{
+	float: right;
+	margin-top: 160px;
+}
+.avatar_place{
+	position: relative;
+	
+}
+.avatar_carusel{
+	position: absolute;
+	top:0;
+	left:0;
+	margin-top:106px;
+	margin-left:35px;
+}
+.avatar_person{
+	margin-right: 52px;
+}
+.avatar_person:last-child{
+	margin-right:0;
+}
+.expert{
+	margin:0 auto;
+	width:1024px;
+	line-height: 15px;
+	text-align: center;
+	font-family: "Segoe UI";
+	font-size: 21px;
+	margin-bottom: 50px;
+}
+.footer{
+	width: 100%;
+	height:284px;
+	background-color:#e07450;
+}
+.menu_footer{
+	margin: 0 auto;
+	width: 1024px;
+	font-family: "Segoe UI Light";
+	font-size:20px;
+	color:#fff;
+	line-height: 18px
+}
+.project{
+	width: 466px;
+	float: left;
+}
+.project-item{
+	border-bottom: 1px solid #fff;
+	padding-top: 47px;
+	padding-bottom: 11px;
+	margin-bottom: 20px;
+}
+.text_project{
+	font-size:15px;
+}
+.contact{
+	width: 288px;
+	float: left;
+	text-align: left;
+}
+.contact_item{
+	border-bottom: 1px solid #fff;
+	padding-top: 47px;
+	padding-bottom: 11px;
+	margin-bottom: 20px;
+	
+}
+.text_contact{
+	font-size:15px;
+	
+}
+.fiedback{
+	width: 270px;
+	float: right;
+	text-align: right;
+}
+.fiedback_item{
+	border-bottom: 1px solid #fff;
+	padding-top: 47px;
+	padding-bottom: 11px;
+	margin-bottom: 20px;
+
+}
+.mail{
+	float:right;
+	margin-right:39px;
+	cursor: pointer;
+}
+body{
+	font-family:"Segoe UI light";
+}
+/*стиль всплывающего окна авторизации*/
+
+.popup-login{
+	display: none;
+	height: 370px;
+	width: 515px;
+	position: absolute;
+	background-color: #fff;
+	top:120px;
+	z-index:999;
+}
+.enter-window{
+	margin:0 auto;
+}
+.close-wrap{
+	margin-left: 5px;
+}
+.head_name{
+	height: 51px;
+	text-align:center;
+	line-height:51px
+}
+.autorisation{
+	font-family:"Segoe UI Light";
+	font-size: 25px;
+}
+.error_line{
+	display: none;
+	height: 24px;
+	line-height: 24px;
+	background-color:#FF2900;
+	text-align: center;
+}
+.error_message{
+	font-size: 16px;
+	color:#fff;
+}
+.enter-form{
+	margin: 0 auto;
+	height: 175px;
+	width: 270px;
+	margin-top: 16px;
+}
+input.login{
+	height: 36px;
+	width: 246px;
+	border: 1px solid;
+	border-color:#CBCBCB;
+	border-radius:6px;
+	font-size:21px;
+	color:#000;
+	font-family: "Segoe UI light";
+	padding: 0 13px;
+	
+}
+input.pass{
+	height: 36px;
+	width: 246px;
+	border: 1px solid;
+	border-color:#CBCBCB;
+	border-radius:6px;
+	font-size:21px;
+	color:#000;
+	font-family: "Segoe UI light";
+	padding: 0 13px;
+}
+input:focus{
+	outline:none;
+}
+.login{
+	margin-bottom:25px;
+}
+.pass_help{
+	float:right;
+	color:#CBCBCB;
+	font-size: 12px;
+	margin-top: 5px;
+
+}
+.btn_log{
+	width: 116px;
+	height: 39px;
+	border-radius: 6px;
+	border:none;
+	background-color: #E07450;
+	font-family: "Segoe UI light";
+	font-size: 21px;
+	color:#fff;
+	padding-bottom: 5px;
+	margin:8px 72px;
+	cursor:pointer;
+}
+.btn_log:focus{
+	outline: none;
+}
+.line{
+	margin: 0 auto;
+	width: 441px;
+	height: 1px;
+	background-color: #E07450;
+	margin-bottom:5px;
+}
+.social-item{
+	margin: 0 auto;
+	width: 227px;
+	height: 83px;
+	text-align: center;
+	font-size: 17px;
+}
+.to_social{
+	margin-top:10px;
+	margin-right: 10px;
+	cursor:pointer;
+}
+a.btn-close{
+	background: url("../img/button-close2.png");
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	cursor:pointer;
+	display: block
+	top:0;
+	right:0;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+body, html{
+	font-family: "ProximaNova-Bold" ;
+	padding:0;
+	margin:0;
+}
+/*стиль страницы инвайт*/
+
+.container-invite{
+	width:100%;
+	min-width: 1024px;
+}
+.menu-wrap{
+	width:100%;
+	height: 88px;
+	background-color:#1f1f1f;
+}
+.log-menu{
+	margin: 0 auto;
+	width: 908px;
+	line-height: 88px;
+}
+.logo-menu_logo{
+	height: 88px;
+	width: 314px;
+	float: left;
+	font-size:41px;
+	color:#e07450;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+.logo-menu_btns{
+	width: 354px;
+	height: 86px;
+	float:right;
+}
+.invite_btn{
+	display: inline-block;
+	text-align: center;
+	font-family: "Segoe UI Semilight";
+	padding-right: 40px;
+	cursor: pointer;
+	color:#E07450;
+}
+.login_btn{
+	display: inline-block;
+	text-align: center;
+	font-family: "Segoe UI Semilight";
+	padding-right: 40px;
+	cursor: pointer;
+	color:#fff;
+}
+.menu_btn{
+	display: inline-block;
+	text-align: center;
+	font-family: "Segoe UI Semilight";
+	color:#fff;
+	cursor: pointer;
+}
+.button_pushmenu{
+	cursor: pointer;
+	padding-left: 10px;
+}
+.logo-fon{
+	width:100%;
+	height: 235px;
+	background:url("../img/fon-invite.png") center center;
+}
+.logo_wrap{
+	width: 1024px;
+	margin: 0 auto;
+	text-align: center;
+	font-family:"Segoe UI Semibold";
+	font-size:42px;
+	color:#fff;
+	text-transform: uppercase;
+	padding-top: 96px;
+}
+.invite_form-wrap{
+	height: 730px;
+}
+.invite_form{
+	margin: 0 auto;
+	font-family: "Segoe UI Semilight";
+	width: 789px;
+	height: 653px;
+	margin-top: 55px;
+}
+input.text-input{
+	width: 715px;
+	height: 47px;
+	border-radius: 10px;
+	border:1px solid;
+	border-color:#949292;
+	font-size: 25px;
+	padding-left: 40px;
+	margin-bottom: 32px;
+}
+.text-input_name{
+	width: 280px;
+	height: 47px;
+	border-radius: 10px;
+	border:1px solid;
+	border-color:#949292;
+	font-size: 25px;
+	padding-left: 40px;
+	margin-right:31px;
+	margin-bottom: 32px;
+}
+.text-input_namefather{
+	width: 358px;
+	height: 47px;
+	border-radius: 10px;
+	border:1px solid;
+	border-color:#949292;
+	font-size: 25px;
+	padding-left: 40px;
+	margin-bottom: 32px;
+}
+input:focus{
+	outline:none;
+}
+.input_write{
+	margin-bottom: 18px;
+	margin-right: 13px;
+}
+.input_write_textarea{
+	margin-bottom: 157px;
+	margin-right: 13px;
+}
+textarea{
+	height: 165px;
+	width: 715px;
+	border-radius: 10px;
+	border:1px solid;
+	border-color:#949292;
+	font-size: 25px;
+	padding-left: 40px;
+	resize:none;
+}
+textarea:focus{
+	outline:none;
+}
+.hint{
+	width: 380px;
+	height: 35px;
+	margin-top: 10px;
+}
+.zvezda{
+	margin-left: 15px;
+	font-family: "Segoe UI Semilight";
+	font-size: 16px;
+	color:#E07450;
+}
+.for_input{
+	margin-left: 30px;
+}
+.btn-submit{
+	margin: 0 auto;
+	width: 261px;
+	height:59px;
+	margin-left: 33px;
+}
+.invite_submit{
+	border:none;
+	border-radius:10px;
+	width: 231px;
+	height:59px;
+	line-height: 59px;
+	background-color:#E07450;
+	color:#fff;
+	font-size:25px;
+	cursor: pointer;
+	padding-left: 30px
+}
+
+
+
+.invList {
+	padding: 20px;
+}
+
+.invList > li  {
+	background: rgba(36, 59, 182, 0.37);
+	margin-bottom: 5px;
+}
+
+.invList > li > span {
+	margin-right: 20px;
+	width: 100px;
+	display: inline-block;
+}
+
+.invList > li > span.invCreate {
+	width: 250px;
+}
+
+

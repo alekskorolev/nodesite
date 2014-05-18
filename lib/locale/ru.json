@@ -1,0 +1,18 @@
+{
+	"Enter": "Войти",
+	"Logout": "Выйти",
+	"GetInvite": "Запросить инвайт",
+	"Lesson": "Учебные программы",
+	"ExpoCat": "Каталог экспертов",
+	"About": "О системе",
+	"%s cat": {
+		"one": "%s cat",
+		"other": "%s cats"
+	},
+	"There is one monkey in the %%s": {
+		"one": "There is one monkey in the %%s",
+		"other": "There are %d monkeys in the %%s"
+	},
+	"тренинги": "тренинги",
+	"Тренинги": "Тренинги"
+}

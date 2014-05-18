@@ -1,0 +1,259 @@
+<!-- Подключение заголовков -->
+<% include ../common/head %>
+	<div class="container-other">
+	<!-- Блок верхнего меню -->
+ 		<% include ../common/topmenu %>
+
+		<div class="logo-fon-profil">
+			<div class="expert-names">
+				<img src="/img/photo-fone.png" class="photo-name" >
+			</div>
+		</div>
+		<div id="blackout"></div>
+		<!-- Окно хранит значение ID альбома, который хочет удалить пользователь -->
+			<input type="hidden" id="id-delete-album">
+			<div class="photo-cont-wrap">
+				<div class="photo-wrap">
+					<% if (user.uid == user_id) { %> <div class="create-album-button">Создать альбом</div> <% } %>
+					<div class="create-container">					
+						<div class="topic-place">
+							<a class="btn-close"></a>
+							<span class="topic">Создать альбом</span>
+							<div class="topic-line"></div>
+						</div>
+						<form action="/rest/createAlbum" method="POST" id="createAlbum">
+							<div class="add_album">
+								<input type="text" placeholder="Введите название" maxlength="50" class="new-name">
+								<textarea maxlength="150" placeholder="Об альбоме" class="about_album"></textarea>
+							</div>
+						</form>
+						<div class="create-btn">
+							<div class="btn-line"></div>
+							<div class="btn-create">Создать</div>
+						</div>
+					</div>
+					<%
+						console.log(user.uid, " ", user_id);
+						if (user.uid == user_id) {
+							href = "/profile";
+						} else {
+							href = "/profileview?id=" + user_id;
+						}
+					%>
+					<a href="<%= href %>"><div class="delete-album">Профиль</div></a>
+					<BR><BR>
+					<div class="my-album-place">
+					<%
+					existAlb = false;
+					album.forEach( function(alb) {
+						existAlb = true;
+						var d = new Date(alb.created);
+						d = (d.getDate()<10)?('0'+d.getDate()):(d.getDate()) + "." 
+						+(((parseInt(d.getMonth())+1)<10)?('0'+parseInt(d.getMonth()+1)):(parseInt(d.getMonth()+1)))
+						+ "."+ d.getFullYear();
+					%>
+						<div class="album-container" id="<%= alb._id %>">
+							<a href="/album/view?id=<%= alb._id %>">
+								<div class="album-default-icon-place view-album-window-button"  for="<%=alb._id%>">
+								</div>
+								<div class="album-info-place">
+									<span class="view-album-window-button" for="<%=alb._id%>"><%= alb.name %></span> <%= d %>
+								</div>
+							</a>
+
+							<div class="album-photo-line">
+								<%
+								if (alb.photos.length>0) {
+									function randsort(a, b) {
+										 if (Math.random() > 0.49) return -1;
+										 if (Math.random() < 0.49) return  1;
+										 return 0
+									}
+									alb.photos.sort(randsort);
+									var limit= alb.photos.length>7 ? 7 : alb.photos.length;
+									var i = 0;
+									for (var i=0; i<limit; i++) {
+										right = i*77;
+								%>
+										<img src="<%= alb.photos[i] %>" class="photo-line-img" style="right: <%= right %>px">
+								<%
+									}
+								} else { 
+								%>
+									Фотографий пока нет
+								<%
+								}
+								%>
+							</div>
+							<% if ((user.uid == user_id)||user.role=='admin') { %>
+								<div class="album-delete" for="<%= alb._id %>">
+									<img src="../img/album-delete-button.png">
+								</div>
+							<% } %>
+						</div>				
+					<%
+					});
+					if (!existAlb) {
+					%>
+						<br><br>Пока не добавлено ни одного альбома
+					<%
+					}
+					%>
+
+						<div class="album-paginator">
+							<%
+							console.log(count, pagecount);
+							console.log(count>pagecount);
+							if (count>pagecount) {
+							%>
+							Страницы: 
+							<%
+								for (var i=0; i<Math.ceil(count/pagecount); i=i+1) {
+							%>
+									<a href='#' class='pageAlb' id='<%= i+1 %>'><%= i+1 %></a>
+							<%
+								}
+							} %>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		<!-- Блок Футера -->
+		<% include ../common/footer %>
+	</div>
+
+<!-- Всплывающие окна -->
+
+	<!-- Подтверждение удаления альбома -->
+	<div class="album-delete-attention-window">
+		<div class="album-delete-topLine">
+		</div>
+		<div class="album-delete-text">
+			<div class="album-delete-text-answer">
+				ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ УДАЛИТЬ АЛЬБОМ?
+			</div>
+			<div class="album-delete-text-variants">
+				<span class="yes-delete-attention album-link-hover">ДА</span>\<span class="close-delete-attention album-link-hover">НЕТ</span>
+			</div>
+		</div>
+		<div class="album-delete-attention-top">
+		</div>
+	</div>
+
+	<!-- Всплывающее окно фотоальбома -->
+		<div class="album-view-window">
+			<!-- здесь содержится данные о текущей странице в фотоальбоме -->
+				<input type="hidden" class="album-view-window-page" value="1">
+
+			<div class="album-view-window-close">
+			</div>
+
+			<div class="album-view-window-head">
+				<div class="album-view-window-image">
+				</div>
+				<div class="album-view-window-text">
+					А здеся вот нозвание
+				</div>
+				<div class="album-add-photo">
+					ДОБАВИТЬ ФОТОГРАФИЮ
+				</div>
+			</div>
+
+			<div class="album-view-window-left">
+			</div>
+
+			<div class="album-view-window-right">
+			</div>
+
+			<div class="album-view-window-photos">
+				<div class="photos-line-1">
+					<label class="put-photo-place-1"></label>
+				</div>
+				<div class="photos-line-2">
+					<label class="put-photo-place-2"></label>
+				</div>
+				<div class="photos-line-3">
+					<label class="put-photo-place-3"></label>
+				</div>
+			</div>
+		</div>
+
+	<!-- Вспылавающее окно создания фотоальбомa -->
+		<div class="window-of-create-photoalbum">
+			<div class="window-of-create-photoalbum-close">
+			</div>
+			<div class="window-of-create-photoalbum-container">
+				<input type="text" class="name-of-album" placeholder="Название альбома">
+				<!-- <textarea class="description-of-album" placeholder="Описание фотоальбома"></textarea> -->
+				
+				<div class="load-photo-in-album">
+					<span class="info-about-load">
+						Загрузить фото
+					</span>
+					<span class="upload-progress">
+
+					</span>
+					<form action="/album/photoUpload" method="POST" enctype='multipart/form-data' id="form-photoUpload">
+						<input type="file" class="photo-in-album-input" name="file">
+						<input type="hidden" name="user_id" value="<%= user_id %>">
+					</form>
+				</div>
+
+				<div class="added-photo-container">
+					<label class="label-add-photo"></label>
+				</div>
+			</div>
+
+			<div class="create-album-cancel">
+				Отмена
+			</div>
+			<div class="create-album-submit">
+				Сохранить
+			</div>
+		</div>
+
+	<!-- Всплывающее окно просмотра фотографии вблизи -->
+	<div class="photo-watch-centr">
+		<div class="photo-watch">
+			<div class="close-photo-watch">
+			</div>
+			<div class="head-photo-container">
+				<input class="photo-watch-name" value="" readonly>
+				<div class="photo-watch-data">
+					21.12.1986
+				</div>
+			</div>
+			<div class="photo-container">
+			</div>
+			<div class="photo-watch-slider">
+
+			</div>
+			<div class="photo-settings">
+				<textarea class="photo-description" readonly></textarea>
+				<div class="delete-this-photo">
+					Удалить
+				</div>
+				<div class="edit-this-photo">
+					Изменить
+				</div>
+				<div class="save-this-photo">
+					Сохранить
+					<div class="info-about-save">Сохранено</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<div id="for-admin-info">
+	<label id="for-admin">
+	</label>
+</div>
+
+<input type="hidden" class="user-id-information" value="<%= user_id %>">
+</body>
+</html>
+
+

@@ -1,0 +1,37 @@
+		<div class="logmenu_wrap">
+			<div class="logmenu">
+				<a href="/" class="logmenu_logo">
+					<img src="/img/up-logo.png">
+				</a>
+				<div class="logmenu_btns">
+					<% if (user.authorized && user.role=='admin') { %>
+						<a class="logmenu_btn admin_btn" href='/admin'>Admin</a>
+					<% } if (user.authorized) { %>
+						<a href="/profile" class="user-mail"><span class="profile-messages"></span></a>
+						<a href="/profile" class="user"><span class="profile"></span></a>
+<!-- 						<img src="/img/user-mail.png" class="user-mail">
+						<a href="/profile"><img src="/img/user.png" class="user"></a> -->
+						<div class="logmenu_btn" id="logout_click"><%= __('Logout') %></div>
+    					
+					<% } else { %>
+						<a href="/invite" class="logmenu_btn"><%= __('GetInvite') %></a>
+						<div class="logmenu_btn" id="login_click"><%= __('Enter') %></div>
+					<% } %>
+					<div class="logmenu_btn-home">MENU</div>
+					<div class="button_pushmenu"></div>
+				</div>
+			</div>
+		</div>
+<!-- 		<div class="menu-wrap">
+			<div class="log-menu">
+				<div class="logo-menu_logo">
+					<img src="img/up-logo2.png">
+				</div>
+				<div class="logo-menu_btns">
+					<img src="img/user-mail.png" class="user-mail">
+					<img src="img/user.png" class="user">
+					<div class="menu_btn">MENU</div>
+					<img src="img/button-menu.png" class="button_pushmenu">
+				</div>
+			</div>
+		</div> -->

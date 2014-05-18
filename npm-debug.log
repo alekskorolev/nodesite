@@ -1,0 +1,85 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'jquery.squareCrop' ]
+2 info using npm@1.2.18
+3 info using node@v0.10.15
+4 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/package.json
+5 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/async/package.json
+6 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/bcrypt/package.json
+7 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/ccrypt/package.json
+8 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/connect/package.json
+9 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/easyimage/package.json
+10 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/ejs/package.json
+11 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/emailjs/package.json
+12 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/express/package.json
+13 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/forever/package.json
+14 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/hiredis/package.json
+15 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/i18n/package.json
+16 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/mongoose/package.json
+17 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/mongoose-redis-cache/package.json
+18 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/redis/package.json
+19 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/sendgrid/package.json
+20 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/session-mongoose/package.json
+21 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/socket.io/package.json
+22 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/node_modules/video-thumb/package.json
+23 verbose read json /home/ekorolev/Projcts/Profy/trunk/nodeproject/package.json
+24 verbose cache add [ 'jquery.squareCrop', null ]
+25 verbose cache add name=undefined spec="jquery.squareCrop" args=["jquery.squareCrop",null]
+26 verbose parsed url { protocol: null,
+26 verbose parsed url   slashes: null,
+26 verbose parsed url   auth: null,
+26 verbose parsed url   host: null,
+26 verbose parsed url   port: null,
+26 verbose parsed url   hostname: null,
+26 verbose parsed url   hash: null,
+26 verbose parsed url   search: null,
+26 verbose parsed url   query: null,
+26 verbose parsed url   pathname: 'jquery.squareCrop',
+26 verbose parsed url   path: 'jquery.squareCrop',
+26 verbose parsed url   href: 'jquery.squareCrop' }
+27 silly lockFile de634d2e-jquery-squareCrop jquery.squareCrop
+28 verbose lock jquery.squareCrop /home/ekorolev/.npm/de634d2e-jquery-squareCrop.lock
+29 silly lockFile de634d2e-jquery-squareCrop jquery.squareCrop
+30 silly lockFile de634d2e-jquery-squareCrop jquery.squareCrop
+31 verbose addNamed [ 'jquery.squareCrop', '' ]
+32 verbose addNamed [ null, '*' ]
+33 silly lockFile 49c465dd-jquery-squareCrop jquery.squareCrop@
+34 verbose lock jquery.squareCrop@ /home/ekorolev/.npm/49c465dd-jquery-squareCrop.lock
+35 silly addNameRange { name: 'jquery.squareCrop', range: '*', hasData: false }
+36 verbose url raw jquery.squareCrop
+37 verbose url resolving [ 'https://registry.npmjs.org/', './jquery.squareCrop' ]
+38 verbose url resolved https://registry.npmjs.org/jquery.squareCrop
+39 info trying registry request attempt 1 at 13:03:11
+40 http GET https://registry.npmjs.org/jquery.squareCrop
+41 http 404 https://registry.npmjs.org/jquery.squareCrop
+42 silly registry.get cb [ 404,
+42 silly registry.get   { date: 'Fri, 24 Jan 2014 09:03:11 GMT',
+42 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R15B03)',
+42 silly registry.get     'content-type': 'application/json',
+42 silly registry.get     'cache-control': 'max-age=0',
+42 silly registry.get     'content-length': '52',
+42 silly registry.get     'accept-ranges': 'bytes',
+42 silly registry.get     via: '1.1 varnish',
+42 silly registry.get     age: '0',
+42 silly registry.get     'x-served-by': 'cache-fra1221-FRA',
+42 silly registry.get     'x-cache': 'MISS',
+42 silly registry.get     'x-cache-hits': '0',
+42 silly registry.get     'x-timer': 'S1390554191.840917110,VS0,VE131',
+42 silly registry.get     'keep-alive': 'timeout=10, max=50',
+42 silly registry.get     connection: 'Keep-Alive' } ]
+43 silly lockFile 49c465dd-jquery-squareCrop jquery.squareCrop@
+44 silly lockFile 49c465dd-jquery-squareCrop jquery.squareCrop@
+45 error 404 'jquery.squareCrop' is not in the npm registry.
+45 error 404 You should bug the author to publish it
+45 error 404
+45 error 404 Note that you can also install from a
+45 error 404 tarball, folder, or http url, or git url.
+46 error System Linux 3.11.0-15-generic
+47 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "jquery.squareCrop"
+48 error cwd /home/ekorolev/Projcts/Profy/trunk/nodeproject
+49 error node -v v0.10.15
+50 error npm -v 1.2.18
+51 error code E404
+52 verbose exit [ 1, true ]

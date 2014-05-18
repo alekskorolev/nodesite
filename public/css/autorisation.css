@@ -1,0 +1,94 @@
+body{
+}
+.popup-login{
+	height: 370px;
+	width: 515px;
+	border:1px solid;
+
+}
+.enter-window{
+	margin:0 auto;
+
+}
+.head_name{
+	height: 51px;
+	text-align:center;
+	line-height:51px
+}
+.autorisation{
+	font-size: 25px;
+}
+.error_line{
+	height: 24px;
+	line-height: 24px;
+	background-color:#FF2900;
+	text-align: center;
+}
+.error_message{
+	font-size: 16px;
+	color:#fff;
+}
+.enter-form{
+	margin: 0 auto;
+	height: 175px;
+	width: 270px;
+	margin-top: 16px;
+}
+input{
+	height: 36px;
+	width: 246px;
+	border-radius:6px;
+	border:none;
+	background-color:#000;
+	font-size:21px;
+	color:#fff;
+	padding: 0 13px;
+	
+}
+input:focus{
+	outline:none;
+}
+.login{
+	margin-bottom:25px;
+}
+.pass_help{
+	float:right;
+	color:#CBCBCB;
+	font-size: 12px;
+	margin-top: 5px;
+
+}
+.btn_log{
+	width: 116px;
+	height: 39px;
+	border-radius: 6px;
+	border:none;
+	background-color: #E07450;
+	font-size: 21px;
+	color:#fff;
+	padding-bottom: 5px;
+	margin:8px 72px;
+	cursor:pointer;
+}
+.btn_log:focus{
+	outline: none;
+}
+.line{
+	margin: 0 auto;
+	width: 441px;
+	height: 1px;
+	background-color: #E07450;
+	margin-bottom:5px;
+}
+.social-item{
+	margin: 0 auto;
+	width: 227px;
+	height: 83px;
+	text-align: center;
+	font-size: 17px;
+}
+.to_social{
+	margin-top:10px;
+	margin-right: 10px;
+	cursor:pointer;
+}

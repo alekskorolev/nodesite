@@ -1,0 +1,50 @@
+<div class='around-create-event-window'>
+	<form action='/events/create' method='POST' id='CREATE_EVENT'>
+		<div class='create-event-window'>
+			<div class='event-name-div'>
+				<input type='text' name='name'>
+				<div class='label-event'>
+					Название
+				</div>
+			</div>
+			<div class='event-desc-div'>
+				<textarea name='description'></textarea>
+				<div class='label-event'>
+					Описание
+				</div>
+			</div>
+			<div class='load-event'>
+				<img for='photo' src='/img/load-photo-img.png'>Загрузить фото
+				 <span class='uploadprogressphoto'></span>
+				<div class='load-container'>
+					<label class='eventphoto-add'></label>
+				</div>
+			</div>
+			<div class='load-event'>
+				<img for='video' src='/img/load-photo-img.png'>Загрузить видео (поддерживаемый формат - .mp4)
+				<span class='uploadprogressvideo'></span>
+				<div class='load-container'>
+					<label class='eventvideo-add'></label>
+				</div>
+			</div>
+			<div class='settings-button-create-event'>
+				<div class='cancel-create-event'>
+					Отменить
+				</div>
+				<div class='submit-create-event'>
+					Создать
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form action='/upload' method='POST' enctype='multipart/form-data' id='eventloadphoto'>
+		<input type='hidden' name='attached' value='event'>
+		<input type='file' name='photo' class='load-event-photo-input hide' accept="image/jpeg,image/png,image/gif">
+	</form>
+
+	<form action='/upload' method='POST' enctype='multipart/form-data' id='eventvideoload'>
+		<input type='hidden' name='attached' value='event'>
+		<input type='file' name='video' class='load-event-video-input hide' accept="video/mp4">
+	</form>
+</div>
